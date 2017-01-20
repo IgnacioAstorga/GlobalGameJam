@@ -12,6 +12,10 @@ public class Radar : MonoBehaviour {
 	// Tamaño del tablero de enemigos
 	public int size;
 
+	// Si activado, el tablero será circular
+	public bool rounded;
+	public bool roundedSpawn;
+
 	// Radio del ping
 	public float pingRadius;
 
@@ -48,6 +52,10 @@ public class Radar : MonoBehaviour {
 		squaresParent.SetParent(_transform, false);
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
+				Vector3 pos = GetWorldPosition(i, j);
+				if (rounded && pos.sqrMagnitude > size * size / 4.0f)
+					continue;
+
 				// Crea la casilla
 				GameObject square = Instantiate(squarePrefab, squaresParent);
 				squares[i, j] = square.GetComponent<Square>();
@@ -55,7 +63,7 @@ public class Radar : MonoBehaviour {
 
 				// Coloca la casilla en su sitio (asume tamaño 1)
 				Transform squareTransform = square.transform;
-				squareTransform.localPosition = GetWorldPosition(i, j);
+				squareTransform.localPosition = pos;
 				squareTransform.localScale = squareTransform.lossyScale;
 			}
 		}
@@ -68,21 +76,28 @@ public class Radar : MonoBehaviour {
 			_timeRemaining = spawnTime;
 
 			// Selecciona una casilla aleatoria para aparecer
-			int side = Random.Range(0, 4);
-			int index = Random.Range(0, size);
-			switch (side) {
-				case 0:
-					SpawnEnemy(index, 0);
-					break;
-				case 1:
-					SpawnEnemy(index, size - 1);
-					break;
-				case 2:
-					SpawnEnemy(0, index);
-					break;
-				case 3:
-					SpawnEnemy(size - 1, index);
-					break;
+			if (!roundedSpawn) {
+				int side = Random.Range(0, 4);
+				int index = Random.Range(0, size);
+				switch (side) {
+					case 0:
+						SpawnEnemy(index, 0);
+						break;
+					case 1:
+						SpawnEnemy(index, size - 1);
+						break;
+					case 2:
+						SpawnEnemy(0, index);
+						break;
+					case 3:
+						SpawnEnemy(size - 1, index);
+						break;
+				}
+			}
+			else {
+				float spawnAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
+				Vector3 position = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0.0f) * size / 2.0f;
+				SpawnEnemy(position);
 			}
 		}
 	}
@@ -123,6 +138,17 @@ public class Radar : MonoBehaviour {
 		// Coloca el enemigo en su sitio (asume tamaño 1)
 		Transform enemyTransform = enemy.transform;
 		enemyTransform.localPosition = GetWorldPosition(x, y);
+		enemyTransform.localScale = enemyTransform.lossyScale;
+	}
+
+	public void SpawnEnemy(Vector3 position) {
+		// Crea el enemigo y lo emparenta
+		GameObject enemy = Instantiate(enemyPrefab, enemiesParent);
+		enemies.Add(enemy.GetComponent<Enemy>());
+
+		// Coloca el enemigo en su sitio (asume tamaño 1)
+		Transform enemyTransform = enemy.transform;
+		enemyTransform.localPosition = position;
 		enemyTransform.localScale = enemyTransform.lossyScale;
 	}
 }
