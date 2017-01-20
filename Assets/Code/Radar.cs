@@ -57,7 +57,7 @@ public class Radar : MonoBehaviour {
 					continue;
 
 				// Crea la casilla
-				GameObject square = Instantiate(squarePrefab, squaresParent);
+				GameObject square = (GameObject)Instantiate(squarePrefab, squaresParent);
 				squares[i, j] = square.GetComponent<Square>();
 				squares[i, j].Initialize(this, i, j);
 
@@ -132,7 +132,7 @@ public class Radar : MonoBehaviour {
 
 	public void SpawnEnemy(int x, int y) {
 		// Crea el enemigo y lo emparenta
-		GameObject enemy = Instantiate(enemyPrefab, enemiesParent);
+		GameObject enemy = (GameObject)Instantiate(enemyPrefab, enemiesParent);
 		enemies.Add(enemy.GetComponent<Enemy>());
 
 		// Coloca el enemigo en su sitio (asume tamaño 1)
@@ -143,7 +143,7 @@ public class Radar : MonoBehaviour {
 
 	public void SpawnEnemy(Vector3 position) {
 		// Crea el enemigo y lo emparenta
-		GameObject enemy = Instantiate(enemyPrefab, enemiesParent);
+		GameObject enemy = (GameObject)Instantiate(enemyPrefab, enemiesParent);
 		enemies.Add(enemy.GetComponent<Enemy>());
 
 		// Coloca el enemigo en su sitio (asume tamaño 1)
