@@ -41,11 +41,11 @@ public class Radar : MonoBehaviour {
 			for (int j = 0; j < size; j++) {
 				// Crea el enemigo
 				GameObject enemy = Instantiate(enemyPrefab, enemiesParent);
-				enemies[i, j] = enemy.GetComponent<Enemy>();
+				enemies.Add(enemy.GetComponent<Enemy>());
 
 				// Coloca el enemigo en su sitio (asume tamaño 1)
 				Transform enemyTransform = enemy.transform;
-				enemyTransform.localPosition = new Vector3(i + 0.5f - size / 2.0f, j + 0.5f - size / 2.0f, 0.0f);
+				enemyTransform.localPosition = GetWorldPosition(i, j);
 				enemyTransform.localScale = enemyTransform.lossyScale;
 			}
 		}
@@ -63,17 +63,21 @@ public class Radar : MonoBehaviour {
 
 				// Coloca la casilla en su sitio (asume tamaño 1)
 				Transform squareTransform = square.transform;
-				squareTransform.localPosition = new Vector3(i + 0.5f - size / 2.0f, j + 0.5f - size / 2.0f, 0.0f);
+				squareTransform.localPosition = GetWorldPosition(i, j);
 				squareTransform.localScale = squareTransform.lossyScale;
 			}
 		}
 	}
 
-	public Enemy GetEnemy(int x, int y) {
+	public List<Enemy> GetEnemies(int x, int y) {
 		if (!IsInsideGrid(x, y))
 			return null;
-		else
-			return enemies[x, y];
+
+		List<Enemy> enemiesInSquare = new List<Enemy>();
+		foreach (Enemy enemy in enemies)
+			if (enemy.IsInSquare(x, y))
+				enemiesInSquare.Add(enemy);
+		return enemiesInSquare;
 	}
 
 	public bool IsInsideGrid(int x, int y) {
@@ -81,18 +85,15 @@ public class Radar : MonoBehaviour {
 	}
 
 	public void Ping(int x, int y, float radius) {
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				// Mira si hay enemigo en la casilla
-				Enemy enemy = GetEnemy(i, j);
-				if (enemy == null)
-					continue;
-				
-				// Mira si la distancia es adecuada
-				Vector3 distance = new Vector2(x, y) - new Vector2(i, j);
-				if (distance.sqrMagnitude <= radius * radius)
-					enemy.Show();
-			}
+		foreach (Enemy enemy in enemies) {
+			// Mira si la distancia es adecuada
+			Vector3 distance = GetWorldPosition(x, y) - enemy.transform.localPosition;
+			if (distance.sqrMagnitude <= radius * radius)
+				enemy.Show();
 		}
+	}
+
+	private Vector3 GetWorldPosition(int x, int y) {
+		return new Vector3(x + 0.5f - size / 2.0f, y + 0.5f - size / 2.0f, 0.0f);
 	}
 }
