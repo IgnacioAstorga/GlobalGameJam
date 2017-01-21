@@ -60,10 +60,11 @@ public class WaveScreen : MonoBehaviour {
 
 		if (WavesFit()) {
 			TurnLightOn();
-			//GameController.GetInstance().radar
+			GameController.GetInstance().radar.radarOn = true;
 		}
 		else {
 			TurnLightOff();
+			GameController.GetInstance().radar.radarOn = false;
 		}
 	}
 
