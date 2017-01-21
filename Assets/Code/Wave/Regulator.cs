@@ -38,7 +38,6 @@ public class Regulator : MonoBehaviour {
 			angle = maxAngle;
 		}
 		value = Mathf.InverseLerp(minAngle, maxAngle, angle);
-		value = Mathf.Lerp(minOutput, maxOutput, value);
 	}
 
 	private Vector3 MouseToWorld(Vector2 mouse) {
