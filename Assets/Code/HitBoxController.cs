@@ -3,10 +3,13 @@ using System.Collections;
 
 public class HitBoxController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
+    private CameraController cameraController;
+
+    // Use this for initialization
+    void Start () {
+        cameraController = Camera.main.transform.parent.GetComponent<CameraController>();
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -16,7 +19,7 @@ public class HitBoxController : MonoBehaviour {
     void OnMouseUp()
     {
         Debug.Log(gameObject.name);
-        Camera.main.GetComponent<CameraController>().DisableColliders();
-        Camera.main.GetComponent<CameraController>().MoveTo(transform, true);
+        cameraController.DisableColliders();
+        cameraController.MoveTo(transform, true);
     }
 }
