@@ -9,6 +9,9 @@ public class Radar : MonoBehaviour {
 	// Prefab de los enemigos
 	public GameObject enemyPrefab;
 
+	// Objeto que contiene la barra de escaneo
+	public Transform scanBar;
+
 	// Tamaño del tablero de enemigos
 	public int size;
 
@@ -25,6 +28,10 @@ public class Radar : MonoBehaviour {
 	// Tiempo entre cada aparición de enemigo
 	public float spawnTime;
 
+	// Tiempo que tarda la barra en hacer el scan (vuelta completa)
+	public float scanTime;
+	public float heartBeatAngleTolerance;
+
 	// Tablero de enemigos
 	private List<Enemy> enemies;
 	private Transform enemiesParent;
@@ -38,6 +45,9 @@ public class Radar : MonoBehaviour {
 
 	// Remaining time for the next enemy to spawn
 	private float _timeRemaining = -1.0f;
+
+	// Ángulo actual que lleva la barra de escaneo
+	private float _scanAngle = 0.0f;
 
 	private void Awake() {
 		_transform = transform;
@@ -73,6 +83,13 @@ public class Radar : MonoBehaviour {
 	}
 
 	private void Update() {
+		// Hace girar la barra de escaneo
+		_scanAngle += 360.0f * Time.deltaTime / scanTime;
+		if (_scanAngle > 360.0f)
+			_scanAngle -= 360.0f;
+		scanBar.localRotation = Quaternion.AngleAxis(_scanAngle, Vector3.back);
+		HeartBeatEnemies(_scanAngle);
+
 		_timeRemaining -= Time.deltaTime;
 		if (_timeRemaining < 0.0f) {
 			// Reinicia el contador
@@ -162,5 +179,18 @@ public class Radar : MonoBehaviour {
 		enemies.Remove(enemy);
 		Destroy(enemy.gameObject);
 		// TODO: Hacer <damage> daño
+	}
+
+	public void DestroyEnemiesAtPosition(int x, int y) {
+		// TODO: Destruir enemigos en la posición
+	}
+
+	private void HeartBeatEnemies(float angle) {
+		foreach (Enemy enemy in enemies) {
+			Vector3 localPosition = enemy.transform.localPosition;
+			float enemyAngle = -Mathf.Atan2(localPosition.y, localPosition.x) * Mathf.Rad2Deg + 180.0f;
+			if (Mathf.Abs(angle - enemyAngle) < heartBeatAngleTolerance)
+				enemy.HeartBeat();
+		}
 	}
 }

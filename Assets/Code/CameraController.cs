@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraController : MonoBehaviour {
-
-    public Transform cameraStartPosition;
+public class CameraController : MonoBehaviour
+{
+    public GameObject child;
 
     public GameObject[] screens;
 
@@ -11,7 +11,9 @@ public class CameraController : MonoBehaviour {
 
     public float movementDuration = 1.0f;
 
-    public float rotationSpeed = 1F;
+    public GameObject lightChain;
+
+    public float lightPhysicsFactor = 10;
 
     private float startTime;
 
@@ -23,13 +25,25 @@ public class CameraController : MonoBehaviour {
 
     private Quaternion endRotation;
 
+    private float shakeTime;
+
+    private float shakeMagnitude;
+
+    private float magnitudeDecretion;
+
+    private Transform childTransform;
+
+    private Rigidbody lightChainRB;
+
     // Use this for initialization
     void Start ()
     {
-        endPostion = transform.position = cameraStartPosition.transform.position;
-        endRotation = transform.rotation = cameraStartPosition.transform.rotation;
-        transform.rotation = cameraStartPosition.transform.rotation;
+        endPostion = transform.position = backPostion.transform.position;
+        startRotation = endRotation = transform.rotation = backPostion.transform.rotation;
 
+        childTransform = child.GetComponent<Transform>();
+
+        lightChainRB = lightChain.GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
@@ -40,12 +54,32 @@ public class CameraController : MonoBehaviour {
             EnableColliders();
             MoveTo(backPostion, false);
         }
+        if (Input.GetButtonDown("Jump"))
+        {
+            ShakeCamera(.5f,1);
+        }
 
         float t = (Time.time - startTime) / movementDuration;
         if (t <= 1f)
         {
             transform.position = SmoothStep(startPostion, endPostion, t);
             transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
+        }
+        
+        if(shakeTime > 0)
+        {
+            shakeTime -= Time.deltaTime;
+            float cameraShakeAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
+            childTransform.localPosition = new Vector3(Mathf.Cos(cameraShakeAngle), Mathf.Sin(cameraShakeAngle), 0.0f) * shakeMagnitude;
+
+            float lightShakeAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
+            lightChainRB.AddForce(new Vector3(Mathf.Cos(lightShakeAngle), 0, Mathf.Sin(lightShakeAngle)) * shakeMagnitude * lightPhysicsFactor);
+
+            shakeMagnitude -= magnitudeDecretion * Time.deltaTime;
+        }
+        else
+        {
+            childTransform.localPosition = Vector3.zero;
         }
     }
 
@@ -82,8 +116,12 @@ public class CameraController : MonoBehaviour {
         }
     }
 
-    public void ShakeCamera()
+    public void ShakeCamera(float magnitude, float duration)
     {
+        Debug.Log("Shake");
+        shakeTime = duration;
+        shakeMagnitude = magnitude;
+        magnitudeDecretion = magnitude / duration;
 
     }
 
