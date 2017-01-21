@@ -17,13 +17,10 @@ public class HitBoxController : MonoBehaviour {
 
     void OnMouseUp()
     {
-        Debug.Log("SettingActive");
-        Debug.Log(gameObject.name);
         cameraController.DisableColliders();
         cameraController.MoveTo(transform);
         if (GameController.GetInstance().isInHelpMode())
         {
-            Debug.Log("SettingActive");
             help.SetActive(true);
             mainHelp.SetActive(false);
         }

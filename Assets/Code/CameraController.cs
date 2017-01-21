@@ -63,7 +63,6 @@ public class CameraController : MonoBehaviour
             !GameController.GetInstance().isGamePaused() &&
             GameController.GetInstance().hasGameStarted())
         {
-            Debug.Log("Pressed right click.");
             EnableColliders();
             MoveTo(backPostion);
         }
@@ -71,7 +70,6 @@ public class CameraController : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && 
             GameController.GetInstance().isInHelpMode())
         {
-            Debug.Log("Pressed right click.");
             EnableColliders();
             MoveTo(backPostion);
             DisableTexts();
@@ -131,7 +129,6 @@ public class CameraController : MonoBehaviour
 
     public void ShakeCamera(float magnitude, float duration)
     {
-        Debug.Log("Shake");
         shakeTime = duration;
         shakeMagnitude = magnitude;
         magnitudeDecretion = magnitude / duration;

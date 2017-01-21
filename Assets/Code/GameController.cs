@@ -68,8 +68,6 @@ public class GameController : MonoBehaviour
     public void Pause()
     {
 
-        Debug.Log("Pause");
-
         Time.timeScale = 0;
         
         pauseMenu.SetActive(true);
@@ -81,8 +79,6 @@ public class GameController : MonoBehaviour
     public void Continue()
     {
 
-        Debug.Log("Continue");
-
         Time.timeScale = 1;
 
         pauseMenu.SetActive(false);
@@ -93,7 +89,6 @@ public class GameController : MonoBehaviour
 
     public void Restart()
     {
-        Debug.Log("Restart");
 
         Time.timeScale = 1;
 
@@ -109,7 +104,6 @@ public class GameController : MonoBehaviour
 
     public void Stop()
     {
-        Debug.Log("Stop");
 
         Continue();
 
