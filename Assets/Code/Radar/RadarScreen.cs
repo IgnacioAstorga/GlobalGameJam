@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Radar : MonoBehaviour {
+public class RadarScreen : MonoBehaviour {
 
 	// Prefab de las casillas
 	public GameObject squarePrefab;

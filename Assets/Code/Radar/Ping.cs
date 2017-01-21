@@ -14,7 +14,7 @@ public class Ping : MonoBehaviour {
 	public float radius;
 
 	[HideInInspector]
-	public Radar radar;
+	public RadarScreen radar;
 
 	private float _elapsedTime;
 

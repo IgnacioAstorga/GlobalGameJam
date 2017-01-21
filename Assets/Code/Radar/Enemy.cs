@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour {
 	private ParticleSystem _particleSystem;
 
 	[HideInInspector]
-	public Radar radar;
+	public RadarScreen radar;
 
 	private void Awake() {
 		_transform = transform;
