@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public class Plug : MonoBehaviour
 {
-    //
     public int value;
 
     public void Start() {
@@ -12,12 +11,6 @@ public class Plug : MonoBehaviour
 
     public void Update() {
         
-    }
-
-    //devuelve el valor del enchufeal colisionar con el
-   void OnTriggerEnter(Collider other)
-    {
-        Debug.Log("im colliding");
     }
 
 }
