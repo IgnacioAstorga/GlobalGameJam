@@ -83,7 +83,10 @@ public class Radar : MonoBehaviour {
 
 	private void Update() {
 		// Hace girar la barra de escaneo
-		_scanAngle += 2.0f * Mathf.PI / scanTime;
+		_scanAngle += 360.0f * Time.deltaTime / scanTime;
+		if (_scanAngle > 360.0f)
+			_scanAngle -= 360.0f;
+		scanBar.localRotation = Quaternion.AngleAxis(_scanAngle, Vector3.back);
 
 		_timeRemaining -= Time.deltaTime;
 		if (_timeRemaining < 0.0f) {
@@ -174,5 +177,9 @@ public class Radar : MonoBehaviour {
 		enemies.Remove(enemy);
 		Destroy(enemy.gameObject);
 		// TODO: Hacer <damage> daño
+	}
+
+	public void DestroyEnemiesAtPosition(int x, int y) {
+		// TODO: Destruir enemigos en la posición
 	}
 }
