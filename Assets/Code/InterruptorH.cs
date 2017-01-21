@@ -16,11 +16,6 @@ public class InterruptorH : MonoBehaviour
 
     private void Update()
     {
-        this.onMouseUp(){
-            Debug.Log("hit!! My pos is " + pos);
-            estado = true;
-
-        }
     }
 
     
