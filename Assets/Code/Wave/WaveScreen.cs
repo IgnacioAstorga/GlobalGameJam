@@ -34,6 +34,17 @@ public class WaveScreen : MonoBehaviour {
 
 	public Vector2 dimensions = new Vector2(1.0f, 1.0f);
 
+	private bool _playing = false;
+
+	public void Play() {
+		_playing = true;
+		ChangeWave();
+	}
+
+	public void Stop() {
+		_playing = false;
+	}
+
 	private void Awake() {
 		_light = lightObject.GetComponentInChildren<Light>();
 	}
@@ -46,9 +57,11 @@ public class WaveScreen : MonoBehaviour {
 	}
 
 	private void Update() {
-		_elapsedTime += Time.deltaTime;
-		if (_elapsedTime > _nextTimeToChange)
-			ChangeWave();
+		if (_playing) {
+			_elapsedTime += Time.deltaTime;
+			if (_elapsedTime > _nextTimeToChange)
+				ChangeWave();
+		}
 
 		for (int i = 0; i < userWaves.Length; i++) {
 			userWaves[i].amplitude = amplitudeRegulators[i].GetOutput();

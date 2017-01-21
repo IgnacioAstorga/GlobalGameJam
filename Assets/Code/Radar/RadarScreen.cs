@@ -60,6 +60,17 @@ public class RadarScreen : MonoBehaviour {
 	// Ángulo actual que lleva la barra de escaneo
 	private float _scanAngle = 0.0f;
 
+	private bool _playing = false;
+
+	public void Play() {
+		_playing = true;
+	}
+
+	public void Stop() {
+		_playing = false;
+		ClearEnemies();
+	}
+
 	private void Awake() {
 		_transform = transform;
 	}
@@ -115,36 +126,44 @@ public class RadarScreen : MonoBehaviour {
 		}
 
 		// Hace aparecer enemigos
-		_timeRemaining -= Time.deltaTime;
-		if (_timeRemaining < 0.0f) {
-			// Reinicia el contador
-			_timeRemaining = spawnTime;
+		if (_playing) {
+			_timeRemaining -= Time.deltaTime;
+			if (_timeRemaining < 0.0f) {
+				// Reinicia el contador
+				_timeRemaining = spawnTime;
 
-			// Selecciona una casilla aleatoria para aparecer
-			if (!roundedSpawn) {
-				int side = Random.Range(0, 4);
-				int index = Random.Range(0, size);
-				switch (side) {
-					case 0:
-						SpawnEnemy(index, 0);
-						break;
-					case 1:
-						SpawnEnemy(index, size - 1);
-						break;
-					case 2:
-						SpawnEnemy(0, index);
-						break;
-					case 3:
-						SpawnEnemy(size - 1, index);
-						break;
+				// Selecciona una casilla aleatoria para aparecer
+				if (!roundedSpawn) {
+					int side = Random.Range(0, 4);
+					int index = Random.Range(0, size);
+					switch (side) {
+						case 0:
+							SpawnEnemy(index, 0);
+							break;
+						case 1:
+							SpawnEnemy(index, size - 1);
+							break;
+						case 2:
+							SpawnEnemy(0, index);
+							break;
+						case 3:
+							SpawnEnemy(size - 1, index);
+							break;
+					}
+				}
+				else {
+					float spawnAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
+					Vector3 position = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0.0f) * size / 2.0f;
+					SpawnEnemy(position);
 				}
 			}
-			else {
-				float spawnAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
-				Vector3 position = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0.0f) * size / 2.0f;
-				SpawnEnemy(position);
-			}
 		}
+	}
+
+	public void ClearEnemies() {
+		foreach (Enemy enemy in enemies)
+			Destroy(enemy);
+		enemies.Clear();
 	}
 
 	public List<Enemy> GetEnemies(int x, int y) {
