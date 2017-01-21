@@ -14,7 +14,7 @@ public class Connection : MonoBehaviour
     //comprueba que la conexion es correcta
     public bool CheckConn() {
         //comprueba que lso dos interruptores estan conectados
-        if (sh.switched && sh.switched)
+        if (sh.switched && sv.switched)
         {
             stablished = true;
         }

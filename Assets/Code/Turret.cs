@@ -4,7 +4,8 @@ using System.Collections.Generic;
 public class Turret : MonoBehaviour
 {
     //la conexion contiene lso dos switches y consulta si estan conectados
-    private  Connection conn; 
+    public  Connection conn;
+
     //la coordenada x a la que dispara
     private int coordenateX;
     //la coordenada y a la que dispara
@@ -12,19 +13,26 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
-        coordenateX = 0;
-        coordenateY = 0;
+        Debug.Log("yeeppp soy una torreta!!");
+        SetX(-1);
+        SetY(-1);
     }
 
     /*en cada frame consulta si la conexion es correcta y 
     en tal caso llama al disparador del radar con las coordenadas*/
-    public void Update() {
-       if(conn.CheckConn())
+    public void Update()
+    {
+        if (conn.CheckConn())
         {
             SetX(conn.GetX());
             SetY(conn.GetY());
             //Radar.dispara(connection.sh.value, connection sh.value);
-            Debug.Log("X: " + coordenateX + "y: " + coordenateY);
+            Debug.Log("apuntando a X: " + coordenateX + "y: " + coordenateY);
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
+        }else
+        {
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
+
         }
     }
 
@@ -36,7 +44,7 @@ public class Turret : MonoBehaviour
     //da un valor a Y
     public void SetY(int yy)
     {
-        coordenateX = yy;
+        coordenateY = yy;
     }
 }
 
