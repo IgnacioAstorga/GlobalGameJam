@@ -68,6 +68,10 @@ public class Enemy : MonoBehaviour {
 		_renderer.enabled = false;
 	}
 
+	public void Destroy() {
+		Destroy(gameObject);
+	}
+
 	public void HeartBeat() {
 		if (visible) {
 			alpha = 1.0f;

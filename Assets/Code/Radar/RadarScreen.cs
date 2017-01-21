@@ -162,7 +162,7 @@ public class RadarScreen : MonoBehaviour {
 
 	public void ClearEnemies() {
 		foreach (Enemy enemy in enemies)
-			Destroy(enemy);
+			enemy.Destroy();
 		enemies.Clear();
 	}
 
@@ -242,12 +242,14 @@ public class RadarScreen : MonoBehaviour {
 
 	public void Damage(Enemy enemy, int damage) {
 		enemies.Remove(enemy);
-		Destroy(enemy.gameObject);
-		// TODO: Hacer <damage> daño
+		enemy.Destroy();
+		GameController.GetInstance().Damage(damage);
 	}
 
 	public void DestroyEnemiesAtPosition(int x, int y) {
-		// TODO: Destruir enemigos en la posición
+		List<Enemy> enemies = GetEnemies(x, y);
+		foreach (Enemy enemy in enemies)
+			enemy.Destroy();
 	}
 
 	private void HeartBeatEnemies(float angle) {

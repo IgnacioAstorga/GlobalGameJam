@@ -57,12 +57,6 @@ public class WaveScreen : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (_playing) {
-			_elapsedTime += Time.deltaTime;
-			if (_elapsedTime > _nextTimeToChange)
-				ChangeWave();
-		}
-
 		for (int i = 0; i < userWaves.Length; i++) {
 			userWaves[i].amplitude = amplitudeRegulators[i].GetOutput();
 			userWaves[i].frequency = frequencyRegulators[i].GetOutput();
@@ -74,6 +68,12 @@ public class WaveScreen : MonoBehaviour {
 		if (WavesFit()) {
 			TurnLightOn();
 			GameController.GetInstance().radar.radarOn = true;
+
+			if (_playing) {
+				_elapsedTime += Time.deltaTime;
+				if (_elapsedTime > _nextTimeToChange)
+					ChangeWave();
+			}
 		}
 		else {
 			TurnLightOff();
