@@ -16,30 +16,20 @@ public class Connection : MonoBehaviour
 
     private bool stablished;
     */
-    public void Start() {
-        scaleZ = 0;
-        if (towerType == type.PRIME)
-        {
-            scaleZ = tFrom.transform.position.z - to.transform.position.z;
-
-        }
-        else
-        {
-            scaleZ = from.transform.position.z - to.transform.position.z;
-        }
-
-
-    }
+   
 
     public void Update() {
         if (towerType == type.PRIME) {
-            PositionFrom(tFrom);      
+            PositionFrom(tFrom);
+            scaleZ = (to.transform.position - tFrom.transform.position).magnitude;
         }
         else
         {
             PositionFrom(from);
+            scaleZ = (to.transform.position - from.transform.position).magnitude;
+
         }
-        
+
         PointingTo(to);
         ScaleZ();
     }
@@ -47,9 +37,12 @@ public class Connection : MonoBehaviour
     //Apunta a un objeto
     public void PointingTo(MonoBehaviour xx)
     {
+        /*
         Vector3 relativePos = xx.transform.position - (transform.position);
         Quaternion rotation = Quaternion.LookRotation(relativePos);
         transform.rotation = rotation;
+        */
+        transform.LookAt(xx.transform.position);
     }
 
     //Parte des de un objeto
@@ -60,7 +53,7 @@ public class Connection : MonoBehaviour
     }
     //se adapta a la distancia de los objetos
     public void ScaleZ() {
-       transform.localScale = new Vector3(1, 1, scaleZ);
+       transform.localScale = new Vector3(1, 1, scaleZ/2);
     }
 
 }
