@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class SwitchV : MonoBehaviour
+public class SwitchH : MonoBehaviour
 {
     //define el estado del interruptor. si esta conectado. puede ser true o false
     public bool switched;
@@ -14,13 +14,12 @@ public class SwitchV : MonoBehaviour
     {
         switched = false;
     }
+
     //en cada frame
-    public void Update()
-    {
+    public void Update() {
         if (switched)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.green;
-
         }
         else
         {
@@ -29,6 +28,7 @@ public class SwitchV : MonoBehaviour
 
         }
     }
+
     //al tocar cambia el estado a true o false
     private void OnMouseUp()
     {
@@ -44,9 +44,9 @@ public class SwitchV : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = Color.green;
 
         }
-        //Debug.Log("Tower " + value + " is " + switched);
+        //Debug.Log("Tower "+value+" is " + switched);
+
     }
-    
     //devuelve el valor del interruptor
     public int GetValue()
     {
@@ -57,10 +57,17 @@ public class SwitchV : MonoBehaviour
     public void MouseMove()
     {
         var pos = Input.mousePosition;
-        pos.z = 11.2f;
+        pos.z = 5f;
         pos = Camera.main.ScreenToWorldPoint(pos);
-        transform.position = pos;
+        transform.position = pos;   
     }
-}
 
+    //devuelve el valor del enchufeal colisionar con el
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("im colliding");
+    }
+
+
+}
 

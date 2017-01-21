@@ -13,7 +13,13 @@ public class Connection : MonoBehaviour
     }
 
     public void Update() {
-      
+        //transform.position = Quaternion.Euler(0, -45, 0) * sh.transform.position;
+        /*
+        Vector3 relativePos = sh.transform.position - (transform.position);
+        Quaternion rotation = Quaternion.LookRotation(relativePos);
+        transform.rotation = rotation;
+        */
+        
     }
     //comprueba que la conexion es correcta
     public bool CheckConn() {
