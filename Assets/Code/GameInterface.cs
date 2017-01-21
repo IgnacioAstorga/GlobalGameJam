@@ -16,6 +16,8 @@ public interface GameInterface
     //animacion antes de jugar
     void gameIntro();
 
+    //cada frame
+    void gameUpdate();
 
     
 }
