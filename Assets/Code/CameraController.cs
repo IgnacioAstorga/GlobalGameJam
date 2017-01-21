@@ -62,8 +62,8 @@ public class CameraController : MonoBehaviour
         {
             shakeTime -= Time.deltaTime;
             float spawnAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
-            childTransform.localPosition = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0.0f) * shakeMagnitude / 2.0f;
-            shakeMagnitude -= magnitudeDecretion;
+            childTransform.localPosition = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0.0f) * shakeMagnitude;
+            shakeMagnitude -= magnitudeDecretion * Time.deltaTime;
         }
         else
         {
