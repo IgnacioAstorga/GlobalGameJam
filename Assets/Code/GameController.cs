@@ -7,9 +7,11 @@ public class GameController : MonoBehaviour
 
 	public WaveScreen wave;
 
-	//public TurretScreen turret;
+    //public TurretScreen turret;
 
-    public int vidas = 5;
+    public int maxLives = 5;
+
+    private int lives;
 
     public GameObject title;
 
@@ -25,6 +27,10 @@ public class GameController : MonoBehaviour
 
     public Transform BackPosition;
 
+    public float damageMagnitude;
+
+    public float damageDuration;
+
     private static GameController instance = null;
 
     private bool isPaused = false;
@@ -36,6 +42,7 @@ public class GameController : MonoBehaviour
     void Awake()
     {
         instance = this;
+        lives = maxLives;
     }
 
     void Update()
@@ -142,6 +149,28 @@ public class GameController : MonoBehaviour
     public void setInHelp(bool newState)
     {
         isInHelp = newState;
+    }
+
+    public void Damage(int damagePoints)
+    {
+        lives -= damagePoints;
+
+        if (lives <= 0)
+            GameOver();
+        else
+        {
+            cameraController.ShakeCamera((maxLives - lives) * damageMagnitude, damageDuration);
+        }
+    }
+
+    public void GameOver()
+    {
+
+    }
+
+    public int GetLives()
+    {
+        return lives;
     }
 }
 

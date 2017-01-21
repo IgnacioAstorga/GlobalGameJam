@@ -77,11 +77,6 @@ public class CameraController : MonoBehaviour
             DisableTexts();
         }
 
-        if (Input.GetButtonDown("Jump"))
-        {
-            ShakeCamera(.05f,2);
-        }
-
         float t = (Time.time - startTime) / movementDuration;
         if (t <= 1f)
         {
