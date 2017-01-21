@@ -9,6 +9,9 @@ public class Radar : MonoBehaviour {
 	// Prefab de los enemigos
 	public GameObject enemyPrefab;
 
+	// Prefab de los pings
+	public Ping pingPrefab;
+
 	// Objeto que contiene la barra de escaneo
 	public Transform scanBar;
 
@@ -30,6 +33,7 @@ public class Radar : MonoBehaviour {
 
 	// Tiempo que tarda la barra en hacer el scan (vuelta completa)
 	public float scanTime;
+	public float heartBeatAngleTolerance;
 
 	// Tablero de enemigos
 	private List<Enemy> enemies;
@@ -38,6 +42,9 @@ public class Radar : MonoBehaviour {
 	// Referencia a las casillas
 	private Square[,] squares;
 	private Transform squaresParent;
+
+	// Padre de los pings creados
+	private Transform pingParent;
 
 	// Referencia al transform del objeto
 	private Transform _transform;
@@ -57,6 +64,10 @@ public class Radar : MonoBehaviour {
 		enemies = new List<Enemy>();
 		enemiesParent = new GameObject("Enemies").transform;
 		enemiesParent.SetParent(_transform, false);
+
+		// Crea el padre de los pings
+		pingParent = new GameObject("Pings").transform;
+		pingParent.SetParent(_transform, false);
 
 		// Crea las casillas
 		squares = new Square[size, size];
@@ -87,6 +98,7 @@ public class Radar : MonoBehaviour {
 		if (_scanAngle > 360.0f)
 			_scanAngle -= 360.0f;
 		scanBar.localRotation = Quaternion.AngleAxis(_scanAngle, Vector3.back);
+		HeartBeatEnemies(_scanAngle);
 
 		_timeRemaining -= Time.deltaTime;
 		if (_timeRemaining < 0.0f) {
@@ -135,6 +147,21 @@ public class Radar : MonoBehaviour {
 		return x >= 0 && x < size && y >= 0 && y < size;
 	}
 
+	public void CreatePing(int x, int y, float radius) {
+		Ping ping = Instantiate<Ping>(pingPrefab);
+		Transform pingTransform = ping.transform;
+		pingTransform.parent = pingParent;
+
+		pingTransform.localPosition = GetWorldPosition(x, y);
+		pingTransform.localRotation = Quaternion.identity;
+		pingTransform.localScale = Vector3.one;
+
+		ping.x = x;
+		ping.y = y;
+		ping.radius = radius;
+		ping.radar = this;
+	}
+
 	public void Ping(int x, int y, float radius) {
 		foreach (Enemy enemy in enemies) {
 			// Mira si la distancia es adecuada
@@ -181,5 +208,14 @@ public class Radar : MonoBehaviour {
 
 	public void DestroyEnemiesAtPosition(int x, int y) {
 		// TODO: Destruir enemigos en la posición
+	}
+
+	private void HeartBeatEnemies(float angle) {
+		foreach (Enemy enemy in enemies) {
+			Vector3 localPosition = enemy.transform.localPosition;
+			float enemyAngle = -Mathf.Atan2(localPosition.y, localPosition.x) * Mathf.Rad2Deg + 180.0f;
+			if (Mathf.Abs(angle - enemyAngle) < heartBeatAngleTolerance)
+				enemy.HeartBeat();
+		}
 	}
 }

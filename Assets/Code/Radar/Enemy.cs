@@ -6,13 +6,19 @@ public class Enemy : MonoBehaviour {
 	
 	public float speed = 0.5f;
 
+	public float fadeTime = 4.5f;
+
 	private float timeToHide;
 
 	private bool visible;
 
+	private float alpha;
+
 	private Transform _transform;
 
 	private Renderer _renderer;
+
+	private ParticleSystem _particleSystem;
 
 	[HideInInspector]
 	public Radar radar;
@@ -20,6 +26,7 @@ public class Enemy : MonoBehaviour {
 	private void Awake() {
 		_transform = transform;
 		_renderer = GetComponent<Renderer>();
+		_particleSystem = GetComponent<ParticleSystem>();
 	}
 
 	private void Start() {
@@ -28,6 +35,12 @@ public class Enemy : MonoBehaviour {
 
 	private void Update() {
 		if (visible) {
+			// Hace fade al objeto
+			alpha -= Time.deltaTime / timeToHide;
+			Color fadeColor = _renderer.material.color;
+			fadeColor.a = alpha;
+			_renderer.material.color = fadeColor;
+
 			// Tras cierto tiempo, se oculta
 			timeToHide -= Time.deltaTime;
 			if (timeToHide < 0.0f)
@@ -46,12 +59,20 @@ public class Enemy : MonoBehaviour {
 		visible = true;
 		timeToHide = visibleTime;
 		_renderer.enabled = true;
+		alpha = 1.0f;
 	}
 
 	public void Hide() {
 		visible = false;
 		timeToHide = -1.0f;
 		_renderer.enabled = false;
+	}
+
+	public void HeartBeat() {
+		if (visible) {
+			alpha = 1.0f;
+			_particleSystem.Emit(5);
+		}
 	}
 
 	public bool IsVisble() {

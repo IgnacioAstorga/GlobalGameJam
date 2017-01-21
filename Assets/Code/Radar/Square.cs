@@ -9,7 +9,7 @@ public class Square : MonoBehaviour {
 
 	private void OnMouseUp() {
 		// Hace un ping en esta casilla
-		radar.Ping(x, y, radar.pingRadius);
+		radar.CreatePing(x, y, radar.pingRadius);
 	}
 
 	public void Initialize(Radar radar, int x, int y) {
