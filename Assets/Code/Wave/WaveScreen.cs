@@ -19,7 +19,18 @@ public class WaveScreen : MonoBehaviour {
 	public float amplitudeTolerance = 0.05f * 0.5f;
 	public float frequencyTolerance = 0.05f * 10.0f;
 
+	[Header("Light")]
+	public Renderer lightObject;
+	private Light _light;
+
+	public Color lightOnColor = Color.yellow;
+	public Color lightOffColor = Color.red;
+
 	public Vector2 dimensions = new Vector2(1.0f, 1.0f);
+
+	private void Awake() {
+		_light = lightObject.GetComponentInChildren<Light>();
+	}
 
 	private void Start() {
 		targetLineRenderer.SetVertexCount(waveResolution);
@@ -34,6 +45,23 @@ public class WaveScreen : MonoBehaviour {
 
 		DrawWave(targetLineRenderer, targetWaves);
 		DrawWave(userLineRenderer, userWaves);
+
+		if (WavesFit())
+			TurnLightOn();
+		else
+			TurnLightOff();
+	}
+
+	private void TurnLightOn() {
+		lightObject.material.SetColor("_EmissionColor", lightOnColor);
+		_light.color = lightOnColor;
+		_light.enabled = true;
+	}
+
+	private void TurnLightOff() {
+		lightObject.material.SetColor("_EmissionColor", lightOffColor);
+		_light.color = lightOffColor;
+		_light.enabled = false;
 	}
 
 	private void DrawWave(LineRenderer lineRenderer, params Wave[] waves) {
