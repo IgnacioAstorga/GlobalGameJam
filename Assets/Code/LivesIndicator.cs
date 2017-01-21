@@ -22,18 +22,18 @@ public class LivesIndicator : MonoBehaviour {
             arrayIndicators[i] = Instantiate(numberIndicator);
             arrayIndicators[i].Set(Color.Lerp(initColor, endColor, (float)i /((float)lives -1)), i + 1, false);
             arrayIndicators[i].transform.SetParent(transform, false);
-            arrayIndicators[i].transform.localPosition = new Vector3(i, 0, 0);
+            arrayIndicators[i].transform.localPosition = new Vector3(i + 0.5f - lives / 2.0f, 0, 0);
         }
 	}
 
 
-	public void UpdateIndicators ()
+	public void Update ()
     {
         int lives = GameController.GetInstance().maxLives;
 
         for (int i = 0; i < lives; ++i)
         {
-            arrayIndicators[i].SetSelected(lives == i+1);
+            arrayIndicators[i].SetSelected(lives - GameController.GetInstance().GetLives() == i);
         }
     }
 }

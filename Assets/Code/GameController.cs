@@ -54,6 +54,9 @@ public class GameController : MonoBehaviour
             else
                 Continue();
         }
+
+		if (Input.GetMouseButtonDown(0))
+			Damage(1);
     }
 
     public static GameController GetInstance()
@@ -155,12 +158,14 @@ public class GameController : MonoBehaviour
     {
         lives -= damagePoints;
 
-        if (lives <= 0)
-            GameOver();
+		if (lives <= 0) {
+			lives = 1;
+			GameOver();
+		}
         else
         {
             cameraController.ShakeCamera((maxLives - lives) * damageMagnitude, damageDuration);
-        }
+		}
     }
 
     public void GameOver()
