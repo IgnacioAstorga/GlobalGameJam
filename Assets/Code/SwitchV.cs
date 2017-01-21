@@ -71,6 +71,10 @@ public class SwitchV : MonoBehaviour
     {
         Debug.Log("im colliding");
     }
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision.gameObject.layer);
+    }
 }
 
 
