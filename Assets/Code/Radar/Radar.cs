@@ -9,6 +9,9 @@ public class Radar : MonoBehaviour {
 	// Prefab de los enemigos
 	public GameObject enemyPrefab;
 
+	// Objeto que contiene la barra de escaneo
+	public Transform scanBar;
+
 	// Tamaño del tablero de enemigos
 	public int size;
 
@@ -25,6 +28,9 @@ public class Radar : MonoBehaviour {
 	// Tiempo entre cada aparición de enemigo
 	public float spawnTime;
 
+	// Tiempo que tarda la barra en hacer el scan (vuelta completa)
+	public float scanTime;
+
 	// Tablero de enemigos
 	private List<Enemy> enemies;
 	private Transform enemiesParent;
@@ -38,6 +44,9 @@ public class Radar : MonoBehaviour {
 
 	// Remaining time for the next enemy to spawn
 	private float _timeRemaining = -1.0f;
+
+	// Ángulo actual que lleva la barra de escaneo
+	private float _scanAngle = 0.0f;
 
 	private void Awake() {
 		_transform = transform;
@@ -73,6 +82,9 @@ public class Radar : MonoBehaviour {
 	}
 
 	private void Update() {
+		// Hace girar la barra de escaneo
+		_scanAngle += 2.0f * Mathf.PI / scanTime;
+
 		_timeRemaining -= Time.deltaTime;
 		if (_timeRemaining < 0.0f) {
 			// Reinicia el contador
