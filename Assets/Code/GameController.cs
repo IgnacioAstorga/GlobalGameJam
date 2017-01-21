@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
-	public Radar radar;
+	public RadarScreen radar;
 
 	public WaveScreen wave;
 

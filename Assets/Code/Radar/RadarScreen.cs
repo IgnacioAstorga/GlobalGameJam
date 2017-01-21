@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Radar : MonoBehaviour {
+public class RadarScreen : MonoBehaviour {
 
 	// Prefab de las casillas
 	public GameObject squarePrefab;
@@ -34,6 +34,11 @@ public class Radar : MonoBehaviour {
 	// Tiempo que tarda la barra en hacer el scan (vuelta completa)
 	public float scanTime;
 	public float heartBeatAngleTolerance;
+	public float barGrowSpeed;
+
+	// Si el radar está encendido o no
+	[HideInInspector]
+	public bool radarOn = true;
 
 	// Tablero de enemigos
 	private List<Enemy> enemies;
@@ -98,8 +103,18 @@ public class Radar : MonoBehaviour {
 		if (_scanAngle > 360.0f)
 			_scanAngle -= 360.0f;
 		scanBar.localRotation = Quaternion.AngleAxis(_scanAngle, Vector3.back);
-		HeartBeatEnemies(_scanAngle);
 
+		if (radarOn) {
+			// Crece la barra y detecta enemigos
+			scanBar.localScale = Vector3.MoveTowards(scanBar.localScale, Vector3.one, barGrowSpeed * Time.deltaTime);
+			HeartBeatEnemies(_scanAngle);
+		}
+		else {
+			// Mengua la barra
+			scanBar.localScale = Vector3.MoveTowards(scanBar.localScale, Vector3.zero, barGrowSpeed * Time.deltaTime);
+		}
+
+		// Hace aparecer enemigos
 		_timeRemaining -= Time.deltaTime;
 		if (_timeRemaining < 0.0f) {
 			// Reinicia el contador
@@ -148,6 +163,10 @@ public class Radar : MonoBehaviour {
 	}
 
 	public void CreatePing(int x, int y, float radius) {
+		// No se puede pingear apagado
+		if (!radarOn)
+			return;
+
 		Ping ping = Instantiate<Ping>(pingPrefab);
 		Transform pingTransform = ping.transform;
 		pingTransform.parent = pingParent;
@@ -166,8 +185,10 @@ public class Radar : MonoBehaviour {
 		foreach (Enemy enemy in enemies) {
 			// Mira si la distancia es adecuada
 			Vector3 distance = GetWorldPosition(x, y) - enemy.transform.localPosition;
-			if (distance.sqrMagnitude <= radius * radius)
+			if (distance.sqrMagnitude <= radius * radius) {
 				enemy.Show();
+				enemy.HeartBeat();
+			}
 		}
 	}
 

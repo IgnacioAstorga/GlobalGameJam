@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     public List<Switch> switchesH = new List<Switch>();
     
     //radar
-    public Radar radar;
+    public RadarScreen radar;
 
     //array de enemigos
     public List<Enemy> enemies = new List<Enemy>();
