@@ -29,6 +29,7 @@ public class MainMenuController : MonoBehaviour {
 
     public void NewGame()
     {
+        Debug.Log("NewGame");
         GameController.GetInstance().setStarted(true);
         mainMenu.SetActive(false);
         title.SetActive(false);
