@@ -71,7 +71,7 @@ public class Enemy : MonoBehaviour {
 	public void HeartBeat() {
 		if (visible) {
 			alpha = 1.0f;
-			_particleSystem.Emit(5);
+			_particleSystem.Emit(1);
 		}
 	}
 
