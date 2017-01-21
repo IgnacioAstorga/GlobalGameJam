@@ -21,6 +21,8 @@ public class LivesIndicator : MonoBehaviour {
         {
             arrayIndicators[i] = Instantiate(numberIndicator);
             arrayIndicators[i].Set(Color.Lerp(initColor, endColor, (float)i /((float)lives -1)), i + 1, false);
+            arrayIndicators[i].transform.SetParent(transform, false);
+            arrayIndicators[i].transform.localPosition = new Vector3(i, 0, 0);
         }
 	}
 
