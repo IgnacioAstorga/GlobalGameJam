@@ -9,6 +9,9 @@ public class Radar : MonoBehaviour {
 	// Prefab de los enemigos
 	public GameObject enemyPrefab;
 
+	// Prefab de los pings
+	public Ping pingPrefab;
+
 	// Objeto que contiene la barra de escaneo
 	public Transform scanBar;
 
@@ -40,6 +43,9 @@ public class Radar : MonoBehaviour {
 	private Square[,] squares;
 	private Transform squaresParent;
 
+	// Padre de los pings creados
+	private Transform pingParent;
+
 	// Referencia al transform del objeto
 	private Transform _transform;
 
@@ -58,6 +64,10 @@ public class Radar : MonoBehaviour {
 		enemies = new List<Enemy>();
 		enemiesParent = new GameObject("Enemies").transform;
 		enemiesParent.SetParent(_transform, false);
+
+		// Crea el padre de los pings
+		pingParent = new GameObject("Pings").transform;
+		pingParent.SetParent(_transform, false);
 
 		// Crea las casillas
 		squares = new Square[size, size];
@@ -135,6 +145,21 @@ public class Radar : MonoBehaviour {
 
 	public bool IsInsideGrid(int x, int y) {
 		return x >= 0 && x < size && y >= 0 && y < size;
+	}
+
+	public void CreatePing(int x, int y, float radius) {
+		Ping ping = Instantiate<Ping>(pingPrefab);
+		Transform pingTransform = ping.transform;
+		pingTransform.parent = pingParent;
+
+		pingTransform.localPosition = GetWorldPosition(x, y);
+		pingTransform.localRotation = Quaternion.identity;
+		pingTransform.localScale = Vector3.one;
+
+		ping.x = x;
+		ping.y = y;
+		ping.radius = radius;
+		ping.radar = this;
 	}
 
 	public void Ping(int x, int y, float radius) {
