@@ -9,12 +9,9 @@ public class GameManager : MonoBehaviour
     //array de torretas
     public List<Turret> turrets = new List<Turret>();
 
-    //array de switchH
-    public List<SwitchH> switchesH = new List<SwitchH>();
-
-    //array de switchV
-    public List<SwitchV> switchesV = new List<SwitchV>();
-
+    //array de switch
+    public List<Switch> switchesH = new List<Switch>();
+    
     //radar
     public Radar radar;
 

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class SwitcH : MonoBehaviour
+public class Switch : MonoBehaviour
 {
     //posibles valores radar
     public enum radarCoord { HOR, VER};
@@ -17,40 +17,44 @@ public class SwitcH : MonoBehaviour
     private void Start()
     {
         switched = false;
+        value = -1;
     }
 
     //en cada frame
     public void Update() {
+        
         if (switched)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
         else
         {
-            MouseMove();
             gameObject.GetComponent<Renderer>().material.color = Color.red;
 
         }
     }
+    //al mantenerlo apretado sigue al raton
+    void OnMouseDown()
+    {
+        switched = false;
+    }
+    void OnMouseDrag() {
+        MouseMove();
+    }
 
-    //al tocar cambia el estado a true o false
+    //al dejar de draggarlo revisa si siene valor
     private void OnMouseUp()
     {
-        if (switched)
-        {
-            switched = false;
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
-
-        }
-        else
+        if (value != -1)
         {
             switched = true;
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-
+            //gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
-        //Debug.Log("Tower "+value+" is " + switched);
-
+        else {
+            //POSICION INICIAL
+        }
     }
+    
     //devuelve el valor del interruptor
     public int GetValue()
     {
@@ -66,15 +70,25 @@ public class SwitcH : MonoBehaviour
         transform.position = pos;   
     }
 
-    //devuelve el valor del enchufeal colisionar con el
+    //devuelve el valor del enchufe al colisionar con el
     void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Plug"))
+        if (other.CompareTag("Plug"))
         {
             this.value = other.GetComponent<Plug>().value;
-            Debug.Log("im colliding with " + value);
+            Debug.Log("im colliding with " + other.GetComponent<Plug>().value);
         }
-           
+
+    }
+    
+    //al dejar de estar en contacto con el enchuve el valor se borra
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Plug"))
+        {
+            value = -1;
+        }
+
     }
 
 

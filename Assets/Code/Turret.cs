@@ -4,12 +4,18 @@ using System.Collections.Generic;
 public class Turret : MonoBehaviour
 {
     //la conexion contiene lso dos switches y consulta si estan conectados
-    public  Connection conn;
+    //public  Connection conn;
 
     //la coordenada x a la que dispara
     private int coordenateX;
     //la coordenada y a la que dispara
     private int coordenateY;
+
+    public Switch sh;
+
+    public Switch sv;
+
+    private bool stablished;
 
     private void Start()
     {
@@ -21,10 +27,11 @@ public class Turret : MonoBehaviour
     en tal caso llama al disparador del radar con las coordenadas*/
     public void Update()
     {
-        if (conn.CheckConn())
+        
+        if (CheckConn())
         {
-            SetX(conn.GetX());
-            SetY(conn.GetY());
+            SetX(GetX());
+            SetY(GetY());
             //Radar.dispara(connection.sh.value, connection sh.value);
             Debug.Log("apuntando a X: " + coordenateX + "y: " + coordenateY);
             gameObject.GetComponent<Renderer>().material.color = Color.green;
@@ -33,6 +40,21 @@ public class Turret : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = Color.red;
 
         }
+        
+    }
+
+    public bool CheckConn()
+    {
+        //comprueba que lso dos interruptores estan conectados
+        if (sh.switched && sv.switched)
+        {
+            stablished = true;
+        }
+        else
+        {
+            stablished = false;
+        }
+        return stablished;
     }
 
     //da un valor a X
@@ -44,6 +66,17 @@ public class Turret : MonoBehaviour
     public void SetY(int yy)
     {
         coordenateY = yy;
+    }
+    //devuelve el valor del interruptorH
+    public int GetX()
+    {
+        return sh.GetValue();
+    }
+
+    //devuelve el valor del interruptorV
+    public int GetY()
+    {
+        return sv.GetValue();
     }
 }
 
