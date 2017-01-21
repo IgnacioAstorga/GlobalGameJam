@@ -56,7 +56,7 @@ public class CameraController : MonoBehaviour
         }
         if (Input.GetButtonDown("Jump"))
         {
-            ShakeCamera(.5f,1);
+            ShakeCamera(0.05f, 2.0f);
         }
 
         float t = (Time.time - startTime) / movementDuration;
