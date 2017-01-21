@@ -11,6 +11,10 @@ public class Connection : MonoBehaviour
     public void Start() {
 
     }
+
+    public void Update() {
+      
+    }
     //comprueba que la conexion es correcta
     public bool CheckConn() {
         //comprueba que lso dos interruptores estan conectados

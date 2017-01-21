@@ -17,10 +17,15 @@ public class SwitchH : MonoBehaviour
 
     //en cada frame
     public void Update() {
-        if (!switched)
+        if (switched)
         {
-            Vector2 vec2 = new Vector2(Input.mousePosition.y, Input.mousePosition.z);
-            this.transform.position = vec2;
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
+        }
+        else
+        {
+            MouseMove();
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
+
         }
     }
 
@@ -46,6 +51,15 @@ public class SwitchH : MonoBehaviour
     public int GetValue()
     {
         return value;
+    }
+
+    //sigue al raton
+    public void MouseMove()
+    {
+        var pos = Input.mousePosition;
+        pos.z = 11.2f;
+        pos = Camera.main.ScreenToWorldPoint(pos);
+        transform.position = pos;   
     }
 
 }

@@ -13,7 +13,6 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log("yeeppp soy una torreta!!");
         SetX(-1);
         SetY(-1);
     }

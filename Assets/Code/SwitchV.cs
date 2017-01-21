@@ -17,10 +17,16 @@ public class SwitchV : MonoBehaviour
     //en cada frame
     public void Update()
     {
-        if (!switched)
+        if (switched)
         {
-            Vector3 vec2 = new Vector3(this.transform.position.x, Input.mousePosition.y, Input.mousePosition.z);
-            this.transform.position = vec2;
+            gameObject.GetComponent<Renderer>().material.color = Color.green;
+
+        }
+        else
+        {
+            MouseMove();
+            gameObject.GetComponent<Renderer>().material.color = Color.red;
+
         }
     }
     //al tocar cambia el estado a true o false
@@ -45,6 +51,15 @@ public class SwitchV : MonoBehaviour
     public int GetValue()
     {
         return value;
+    }
+
+    //sigue al raton
+    public void MouseMove()
+    {
+        var pos = Input.mousePosition;
+        pos.z = 11.2f;
+        pos = Camera.main.ScreenToWorldPoint(pos);
+        transform.position = pos;
     }
 }
 
