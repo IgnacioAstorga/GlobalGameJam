@@ -5,19 +5,19 @@ public interface GameInterface
 {
 
     //esta funcion ejecuta el juego
-    void gameStart();
+    void GameStart();
 
     //se ejecuta al pausar
-    void gamePause();
+    void GamePause();
 
     //al perder todas las vidas
-    void gameOver();
+    void GameOver();
 
     //animacion antes de jugar
-    void gameIntro();
+    void GameIntro();
 
     //cada frame
-    void gameUpdate();
+    void GameUpdate();
 
     
 }
