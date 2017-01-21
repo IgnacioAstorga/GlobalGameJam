@@ -30,6 +30,7 @@ public class Radar : MonoBehaviour {
 
 	// Tiempo que tarda la barra en hacer el scan (vuelta completa)
 	public float scanTime;
+	public float heartBeatAngleTolerance;
 
 	// Tablero de enemigos
 	private List<Enemy> enemies;
@@ -87,6 +88,7 @@ public class Radar : MonoBehaviour {
 		if (_scanAngle > 360.0f)
 			_scanAngle -= 360.0f;
 		scanBar.localRotation = Quaternion.AngleAxis(_scanAngle, Vector3.back);
+		HeartBeatEnemies(_scanAngle);
 
 		_timeRemaining -= Time.deltaTime;
 		if (_timeRemaining < 0.0f) {
@@ -181,5 +183,14 @@ public class Radar : MonoBehaviour {
 
 	public void DestroyEnemiesAtPosition(int x, int y) {
 		// TODO: Destruir enemigos en la posición
+	}
+
+	private void HeartBeatEnemies(float angle) {
+		foreach (Enemy enemy in enemies) {
+			Vector3 localPosition = enemy.transform.localPosition;
+			float enemyAngle = -Mathf.Atan2(localPosition.y, localPosition.x) * Mathf.Rad2Deg + 180.0f;
+			if (Mathf.Abs(angle - enemyAngle) < heartBeatAngleTolerance)
+				enemy.HeartBeat();
+		}
 	}
 }
