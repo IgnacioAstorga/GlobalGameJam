@@ -25,6 +25,8 @@ public class CameraController : MonoBehaviour
 
     private float shakeMagnitude;
 
+    private float magnitudeDecretion;
+
     private Transform childTransform;
 
     // Use this for initialization
@@ -61,6 +63,7 @@ public class CameraController : MonoBehaviour
             shakeTime -= Time.deltaTime;
             float spawnAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
             childTransform.localPosition = new Vector3(Mathf.Cos(spawnAngle), Mathf.Sin(spawnAngle), 0.0f) * shakeMagnitude / 2.0f;
+            shakeMagnitude -= magnitudeDecretion;
         }
         else
         {
@@ -105,7 +108,8 @@ public class CameraController : MonoBehaviour
     {
         Debug.Log("Shake");
         shakeTime = duration;
-        shakeMagnitude = duration;
+        shakeMagnitude = magnitude;
+        magnitudeDecretion = magnitude / duration;
     }
 
     public static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount)
