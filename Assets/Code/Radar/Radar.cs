@@ -12,6 +12,9 @@ public class Radar : MonoBehaviour {
 	// Tamaño del tablero de enemigos
 	public int size;
 
+	// Radio para hacer daño al jugador
+	public float centerRadius;
+
 	// Si activado, el tablero será circular
 	public bool rounded;
 	public bool roundedSpawn;
@@ -131,24 +134,33 @@ public class Radar : MonoBehaviour {
 	}
 
 	public void SpawnEnemy(int x, int y) {
-		// Crea el enemigo y lo emparenta
-		GameObject enemy = (GameObject)Instantiate(enemyPrefab, enemiesParent);
-		enemies.Add(enemy.GetComponent<Enemy>());
-
 		// Coloca el enemigo en su sitio (asume tamaño 1)
+		GameObject enemy = CreateEnemy();
 		Transform enemyTransform = enemy.transform;
 		enemyTransform.localPosition = GetWorldPosition(x, y);
 		enemyTransform.localScale = enemyTransform.lossyScale;
 	}
 
 	public void SpawnEnemy(Vector3 position) {
-		// Crea el enemigo y lo emparenta
-		GameObject enemy = (GameObject)Instantiate(enemyPrefab, enemiesParent);
-		enemies.Add(enemy.GetComponent<Enemy>());
-
 		// Coloca el enemigo en su sitio (asume tamaño 1)
+		GameObject enemy = CreateEnemy();
 		Transform enemyTransform = enemy.transform;
 		enemyTransform.localPosition = position;
 		enemyTransform.localScale = enemyTransform.lossyScale;
+	}
+
+	private GameObject CreateEnemy() {
+		// Crea el enemigo y lo emparenta
+		GameObject enemy = (GameObject)Instantiate(enemyPrefab, enemiesParent);
+		Enemy enemyComponent = enemy.GetComponent<Enemy>();
+		enemies.Add(enemyComponent);
+		enemyComponent.radar = this;
+		return enemy;
+	}
+
+	public void Damage(Enemy enemy, int damage) {
+		enemies.Remove(enemy);
+		Destroy(enemy.gameObject);
+		// TODO: Hacer <damage> daño
 	}
 }
