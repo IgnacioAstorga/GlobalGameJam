@@ -9,11 +9,21 @@ public class CameraController : MonoBehaviour
 
     public Transform backPostion;
 
+    public Transform initPosition;
+
     public float movementDuration = 1.0f;
 
     public GameObject lightChain;
 
     public float lightPhysicsFactor = 10;
+
+    public GameObject text1;
+
+    public GameObject text2;
+
+    public GameObject text3;
+
+    public GameObject mainText;
 
     private float startTime;
 
@@ -38,8 +48,8 @@ public class CameraController : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        endPostion = transform.position = backPostion.transform.position;
-        startRotation = endRotation = transform.rotation = backPostion.transform.rotation;
+        endPostion = transform.position = initPosition.transform.position;
+        startRotation = endRotation = transform.rotation = initPosition.transform.rotation;
 
         childTransform = child.GetComponent<Transform>();
 
@@ -47,16 +57,29 @@ public class CameraController : MonoBehaviour
     }
 	
 	// Update is called once per frame
-	void Update () {
-        if (Input.GetMouseButtonDown(1))
+	void Update ()
+    {
+        if (Input.GetMouseButtonDown(1) && 
+            !GameController.GetInstance().isGamePaused() &&
+            GameController.GetInstance().hasGameStarted())
         {
             Debug.Log("Pressed right click.");
             EnableColliders();
-            MoveTo(backPostion, false);
+            MoveTo(backPostion);
         }
+
+        if (Input.GetMouseButtonDown(1) && 
+            GameController.GetInstance().isInHelpMode())
+        {
+            Debug.Log("Pressed right click.");
+            EnableColliders();
+            MoveTo(backPostion);
+            DisableTexts();
+        }
+
         if (Input.GetButtonDown("Jump"))
         {
-            ShakeCamera(.5f,1);
+            ShakeCamera(.05f,2);
         }
 
         float t = (Time.time - startTime) / movementDuration;
@@ -83,19 +106,14 @@ public class CameraController : MonoBehaviour
         }
     }
 
-    public void MoveTo(Transform targetTransform, bool moveIn)
+    public void MoveTo(Transform targetTransform)
     {
 
         startTime = Time.time;
-        if (moveIn)
-        {
-            endPostion = targetTransform.position;
-            endRotation = targetTransform.rotation;
-        }else
-        {
-            endPostion = backPostion.position;
-            endRotation = backPostion.rotation;
-        }
+
+        endPostion = targetTransform.position;
+        endRotation = targetTransform.rotation;
+
         startPostion = transform.position;
         startRotation = transform.rotation;
     }
@@ -131,6 +149,14 @@ public class CameraController : MonoBehaviour
             Mathf.SmoothStep(value1.x, value2.x, amount),
             Mathf.SmoothStep(value1.y, value2.y, amount),
             Mathf.SmoothStep(value1.z, value2.z, amount));
+    }
+
+    public void DisableTexts()
+    {
+        text1.SetActive(false);
+        text2.SetActive(false);
+        text3.SetActive(false);
+        mainText.SetActive(true);
     }
 
 }
