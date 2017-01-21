@@ -10,7 +10,7 @@ public class Regulator : MonoBehaviour {
 	public float minOutput = 0.0f;
 	public float maxOutput = 1.0f;
 
-	public float value = 0.0f;
+	public float value = 0.5f;
 
 	private Transform _transform;
 

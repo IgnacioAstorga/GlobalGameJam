@@ -30,7 +30,7 @@ public class MainMenuController : MonoBehaviour {
     public void NewGame()
     {
         Debug.Log("NewGame");
-        GameController.GetInstance().setStarted(true);
+        GameController.GetInstance().Play();
         mainMenu.SetActive(false);
         title.SetActive(false);
         cameraController.MoveTo(backPosition);
