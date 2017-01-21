@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 
 public class Plug : MonoBehaviour
 {
@@ -15,9 +15,13 @@ public class Plug : MonoBehaviour
     }
 
     //devuelve el valor del enchufeal colisionar con el
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
         Debug.Log("im colliding");
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        Destroy(other.gameObject);
     }
 
 }

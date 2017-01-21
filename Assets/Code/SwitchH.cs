@@ -67,6 +67,10 @@ public class SwitchH : MonoBehaviour
     {
         Debug.Log("im colliding");
     }
+    void OnTriggerStay(Collider other)
+    {
+        Debug.Log("im colliding");
+    }
 
 
 }
