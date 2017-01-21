@@ -32,7 +32,7 @@ public class Turret : MonoBehaviour
         {
             SetX(GetX());
             SetY(GetY());
-            //Radar.dispara(connection.sh.value, connection sh.value);
+            //TODO Radar.dispara(connection.sh.value, connection sh.value);
             Debug.Log("apuntando a X: " + coordenateX + "y: " + coordenateY);
             gameObject.GetComponent<Renderer>().material.color = Color.green;
         }else
