@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
+	public Radar radar;
+
+	public WaveScreen wave;
+
+	//public TurretScreen turret;
+
     public int vidas = 5;
 
     public GameObject title;

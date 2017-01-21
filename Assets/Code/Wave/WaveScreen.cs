@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
 
 public class WaveScreen : MonoBehaviour {
 
@@ -16,8 +15,15 @@ public class WaveScreen : MonoBehaviour {
 
 	public float speed = 1.0f;
 
-	public float amplitudeTolerance = 0.05f * 0.5f;
-	public float frequencyTolerance = 0.05f * 10.0f;
+	public float maxAmplitude = 0.5f;
+	public float maxFrequency = 10.0f;
+	public float toleranceFactor = 0.05f;
+
+	public float minChangeTime = 30.0f;
+	public float maxChangeTime = 60.0f;
+
+	private float _nextTimeToChange;
+	private float _elapsedTime;
 
 	[Header("Light")]
 	public Renderer lightObject;
@@ -35,9 +41,15 @@ public class WaveScreen : MonoBehaviour {
 	private void Start() {
 		targetLineRenderer.SetVertexCount(waveResolution);
 		userLineRenderer.SetVertexCount(waveResolution);
+
+		ChangeWave();
 	}
 
 	private void Update() {
+		_elapsedTime += Time.deltaTime;
+		if (_elapsedTime > _nextTimeToChange)
+			ChangeWave();
+
 		for (int i = 0; i < userWaves.Length; i++) {
 			userWaves[i].amplitude = amplitudeRegulators[i].GetOutput();
 			userWaves[i].frequency = frequencyRegulators[i].GetOutput();
@@ -46,10 +58,23 @@ public class WaveScreen : MonoBehaviour {
 		DrawWave(targetLineRenderer, targetWaves);
 		DrawWave(userLineRenderer, userWaves);
 
-		if (WavesFit())
+		if (WavesFit()) {
 			TurnLightOn();
-		else
+			//GameController.GetInstance().radar
+		}
+		else {
 			TurnLightOff();
+		}
+	}
+
+	public void ChangeWave() {
+		_elapsedTime = 0;
+		_nextTimeToChange = Random.Range(minChangeTime, maxChangeTime);
+
+		foreach (Wave wave in targetWaves) {
+			wave.amplitude = Random.value * maxAmplitude;
+			wave.frequency = Random.value * maxFrequency;
+		}
 	}
 
 	private void TurnLightOn() {
@@ -99,7 +124,7 @@ public class WaveScreen : MonoBehaviour {
 	}
 
 	public bool WavesFitTogether(Wave waveA, Wave waveB) {
-		return Mathf.Abs(waveA.amplitude - waveB.amplitude) < amplitudeTolerance
-			&& Mathf.Abs(waveA.frequency - waveB.frequency) < frequencyTolerance;
+		return Mathf.Abs(waveA.amplitude - waveB.amplitude) < maxAmplitude * toleranceFactor
+			&& Mathf.Abs(waveA.frequency - waveB.frequency) < maxFrequency * toleranceFactor;
 	}
 }
