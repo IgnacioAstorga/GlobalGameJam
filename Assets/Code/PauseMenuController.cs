@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PauseMenuController : MonoBehaviour {
+
+    public AudioMixer mixer;
+
+    public Slider volumeSlider;
 
     private CameraController cameraController;
 
@@ -34,7 +40,7 @@ public class PauseMenuController : MonoBehaviour {
 
     public void ChangeVolume()
     {
-
+        mixer.SetFloat("Volume", volumeSlider.value);
     }
 
 }
