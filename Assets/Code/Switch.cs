@@ -10,26 +10,33 @@ public class Switch : MonoBehaviour
     //define el estado del interruptor. si esta conectado. puede ser true o false
     public bool switched;
     //valor que representa posicion vertical
-    public int value;
+    
     //ultimo valor correcto
-    public int lastKnownValue;
+    //public int lastKnownValue;
     //ultima posicion correcta
-    public Vector3 lastKnownPos;
+    //public Vector3 lastKnownPos;
+    //posicion a la que se va a mover si se suelta el boton
+    //public Vector3 tempPos;
+    //posicion a la que se va a mover si se suelta el boton
+    //public int tempValue;
+
+    //plug inicial
+    public Plug initialPlug;
+    //plug temporal
+    private Plug tempPlug;
+    //ultimo plug guardado
+    private Plug lastKnownPlug;
+
 
     //por defecto esta apagado
     private void Start()
     {
-        switched = false;
-        value = -1;
-        lastKnownValue = this.value;
-        if (coord == radarCoord.HOR) {
-            lastKnownPos = new Vector3(0, 0, 0);
-            transform.position = lastKnownPos;
-        }else
-        {
-            lastKnownPos = new Vector3(0, 0, 4);
-            transform.position = lastKnownPos;
-        }
+        tempPlug = null;
+        lastKnownPlug = initialPlug;
+        tempPlug = initialPlug;
+        switched = true;
+        transform.position = initialPlug.transform.position;
+        
         
     }
 
@@ -59,19 +66,25 @@ public class Switch : MonoBehaviour
     //al dejar de draggarlo revisa si siene valor
     private void OnMouseUp()
     {
-        value = lastKnownValue;
-        transform.position = lastKnownPos;
-        if (value != -1)
+        if (tempPlug != null)
         {
             switched = true;
+            lastKnownPlug = tempPlug;
+            tempPlug = null;
         }
-       
+        transform.position = lastKnownPlug.transform.position;
+        switched = true;
+
+
     }
-    
+
+
+
+
     //devuelve el valor del interruptor
     public int GetValue()
     {
-        return value;
+        return lastKnownPlug.value;
     }
 
     //sigue al raton
@@ -94,14 +107,10 @@ public class Switch : MonoBehaviour
             {
                 if (other.GetComponent<Plug>().coord.ToString().Equals(this.coord.ToString()) == true)
                 {
+                    tempPlug = other.GetComponent<Plug>();
                     other.GetComponent<Plug>().switched = true;
-                    this.value = other.GetComponent<Plug>().value;
-                    transform.position = other.transform.position;
-
-                    lastKnownValue = other.GetComponent<Plug>().value;
-                    lastKnownPos = other.transform.position;
                 }
-               
+
             }
 
         }
@@ -114,7 +123,7 @@ public class Switch : MonoBehaviour
         if (other.CompareTag("Plug"))
         {
             other.GetComponent<Plug>().switched = false;
-            value = -1;
+            tempPlug = null;
         }
 
 

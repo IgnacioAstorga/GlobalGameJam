@@ -20,35 +20,41 @@ public class Connection : MonoBehaviour
 
     public void Update() {
         if (towerType == type.PRIME) {
-            PositionFrom(tFrom);
+            PositionFromPrime();
             scaleZ = (to.transform.position - tFrom.transform.position).magnitude;
         }
         else
         {
-            PositionFrom(from);
+            PositionFrom();
             scaleZ = (to.transform.position - from.transform.position).magnitude;
 
         }
 
-        PointingTo(to);
+        PointingTo();
         ScaleZ();
     }
 
     //Apunta a un objeto
-    public void PointingTo(MonoBehaviour xx)
+    public void PointingTo()
     {
         /*
         Vector3 relativePos = xx.transform.position - (transform.position);
         Quaternion rotation = Quaternion.LookRotation(relativePos);
         transform.rotation = rotation;
         */
-        transform.LookAt(xx.transform.position);
+        transform.LookAt(to.transform.position);
     }
 
     //Parte des de un objeto
-    public void PositionFrom(MonoBehaviour xx)
+    public void PositionFrom()
     {
-        Vector3 relativePos = xx.transform.position;
+        Vector3 relativePos = from.transform.position;
+        this.transform.position = relativePos;
+    }
+    //Parte des de un objeto version PRIME
+    public void PositionFromPrime()
+    {
+        Vector3 relativePos = tFrom.transform.position;
         this.transform.position = relativePos;
     }
     //se adapta a la distancia de los objetos
