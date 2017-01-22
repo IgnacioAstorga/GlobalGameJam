@@ -18,7 +18,7 @@ public class HitBoxController : MonoBehaviour {
     void OnMouseUp()
     {
         cameraController.DisableColliders();
-        cameraController.MoveTo(transform);
+        cameraController.MoveTo(transform.parent);
         if (GameController.GetInstance().isInHelpMode())
         {
             help.SetActive(true);

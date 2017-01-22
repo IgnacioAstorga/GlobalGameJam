@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
 
 	private float startTime;
 
-	private Vector3 startPostion;
+	private Vector3 startPosition;
 
 	private Vector3 endPostion;
 
@@ -50,7 +50,7 @@ public class CameraController : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		endPostion = transform.position = initPosition.transform.position;
+		startPosition = endPostion = transform.position = initPosition.transform.position;
 		startRotation = endRotation = transform.rotation = initPosition.transform.rotation;
 
 		childTransform = child.GetComponent<Transform>();
@@ -80,7 +80,7 @@ public class CameraController : MonoBehaviour
 		float t = (Time.time - startTime) / movementDuration;
 		if (t <= 1f)
 		{
-			transform.position = SmoothStep(startPostion, endPostion, t);
+			transform.position = SmoothStep(startPosition, endPostion, t);
 			transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
 		}
 
@@ -113,7 +113,7 @@ public class CameraController : MonoBehaviour
 		endPostion = targetTransform.position;
 		endRotation = targetTransform.rotation;
 
-		startPostion = transform.position;
+		startPosition = transform.position;
 		startRotation = transform.rotation;
 	}
 
