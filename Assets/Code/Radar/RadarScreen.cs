@@ -28,6 +28,10 @@ public class RadarScreen : MonoBehaviour {
 	// Radio del ping
 	public float pingRadius;
 
+	// Cooldown del ping
+	public float pingCD;
+	private float remainingPingCD;
+
 	// Tiempo entre cada aparición de enemigo
 	public float spawnTime;
 
@@ -172,7 +176,7 @@ public class RadarScreen : MonoBehaviour {
 
 		List<Enemy> enemiesInSquare = new List<Enemy>();
 		foreach (Enemy enemy in enemies)
-			if (enemy.IsInSquare(x, y))
+			if (enemy.IsInSquare(x, y, size))
 				enemiesInSquare.Add(enemy);
 		return enemiesInSquare;
 	}
@@ -247,9 +251,11 @@ public class RadarScreen : MonoBehaviour {
 	}
 
 	public void DestroyEnemiesAtPosition(int x, int y) {
-		List<Enemy> enemies = GetEnemies(x, y);
-		foreach (Enemy enemy in enemies)
+		List<Enemy> enemiesAtPosition = GetEnemies(x, y);
+		foreach (Enemy enemy in enemiesAtPosition) {
+			enemies.Remove(enemy);
 			enemy.Destroy();
+		}
 	}
 
 	private void HeartBeatEnemies(float angle) {

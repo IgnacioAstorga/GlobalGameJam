@@ -83,7 +83,9 @@ public class Enemy : MonoBehaviour {
 		return visible;
 	}
 
-	public bool IsInSquare(int x, int y) {
-		return x == Mathf.Floor(_transform.localPosition.x) && y == Mathf.Floor(_transform.localPosition.y);
+	public bool IsInSquare(int x, int y, int size) {
+		int i = (int)(_transform.localPosition.x + size / 2.0f);
+		int j = (int)(_transform.localPosition.y + size / 2.0f);
+		return i == x && j == y;
 	}
 }
