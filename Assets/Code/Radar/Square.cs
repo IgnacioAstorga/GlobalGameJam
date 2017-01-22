@@ -2,22 +2,20 @@
 
 public class Square : MonoBehaviour {
 
+	public ParticleSystem system;
+	public float delay = 1.0f;
+
 	private int x;
 	private int y;
+
+	private float time;
 
 	private RadarScreen radar;
 
 	private bool pingPong;
-	private ParticleSystem system;
-
-	private void Awake() {
-		system = GetComponent<ParticleSystem>();
-	}
 
 	private void Update() {
-		if (!pingPong)
-			StopEffect();
-		pingPong = false;
+		time -= Time.deltaTime;
 	}
 
 	private void OnMouseUp() {
@@ -32,11 +30,9 @@ public class Square : MonoBehaviour {
 	}
 
 	public void PlayEffect() {
-		system.Play();
-		pingPong = true;
-	}
-
-	public void StopEffect() {
-		system.Stop();
+		if (time <= 0.0f) {
+			time = delay;
+			system.Emit(1);
+		}
 	}
 }
