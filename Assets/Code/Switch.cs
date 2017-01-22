@@ -9,15 +9,28 @@ public class Switch : MonoBehaviour
     public radarCoord coord; 
     //define el estado del interruptor. si esta conectado. puede ser true o false
     public bool switched;
-
     //valor que representa posicion vertical
     public int value;
+    //ultimo valor correcto
+    public int lastKnownValue;
+    //ultima posicion correcta
+    public Vector3 lastKnownPos;
 
     //por defecto esta apagado
     private void Start()
     {
         switched = false;
         value = -1;
+        lastKnownValue = this.value;
+        if (coord == radarCoord.HOR) {
+            lastKnownPos = new Vector3(0, 0, 0);
+            transform.position = lastKnownPos;
+        }else
+        {
+            lastKnownPos = new Vector3(0, 0, 4);
+            transform.position = lastKnownPos;
+        }
+        
     }
 
     //en cada frame
@@ -38,6 +51,7 @@ public class Switch : MonoBehaviour
     {
         switched = false;
     }
+
     void OnMouseDrag() {
         MouseMove();
     }
@@ -45,14 +59,13 @@ public class Switch : MonoBehaviour
     //al dejar de draggarlo revisa si siene valor
     private void OnMouseUp()
     {
+        value = lastKnownValue;
+        transform.position = lastKnownPos;
         if (value != -1)
         {
             switched = true;
-            //gameObject.GetComponent<Renderer>().material.color = Color.green;
         }
-        else {
-            //POSICION INICIAL
-        }
+       
     }
     
     //devuelve el valor del interruptor
@@ -63,22 +76,34 @@ public class Switch : MonoBehaviour
 
     //sigue al raton
     public void MouseMove() {
-		Plane plane = new Plane(-transform.parent.forward, transform.parent.position);
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		float distance;
-		if (plane.Raycast(ray, out distance))
-			transform.position = ray.GetPoint(distance);
-		else
-			Debug.Log("ERROR");
+        Plane plane = new Plane(-transform.parent.forward, transform.parent.position);
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        float distance;
+        if (plane.Raycast(ray, out distance)) {
+            transform.position = ray.GetPoint(distance);
+        }
+		
     }
 
     //devuelve el valor del enchufe al colisionar con el
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Plug"))
+        if (other.CompareTag("Plug") )
         {
-            this.value = other.GetComponent<Plug>().value;
-            Debug.Log("im colliding with " + other.GetComponent<Plug>().value);
+            if (other.GetComponent<Plug>().switched == false )
+            {
+                if (other.GetComponent<Plug>().coord.ToString().Equals(this.coord.ToString()) == true)
+                {
+                    other.GetComponent<Plug>().switched = true;
+                    this.value = other.GetComponent<Plug>().value;
+                    transform.position = other.transform.position;
+
+                    lastKnownValue = other.GetComponent<Plug>().value;
+                    lastKnownPos = other.transform.position;
+                }
+               
+            }
+
         }
 
     }
@@ -88,8 +113,11 @@ public class Switch : MonoBehaviour
     {
         if (other.CompareTag("Plug"))
         {
+            other.GetComponent<Plug>().switched = false;
             value = -1;
         }
+
+
 
     }
 

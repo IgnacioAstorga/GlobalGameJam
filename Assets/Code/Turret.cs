@@ -29,8 +29,7 @@ public class Turret : MonoBehaviour
         {
             SetX(GetX());
             SetY(GetY());
-            GameController.GetInstance().radar.DestroyEnemiesAtPosition(coordenateX, coordenateY);
-            //Debug.Log("apuntando a X: " + coordenateX + "y: " + coordenateY);
+            //GameController.GetInstance().radar.DestroyEnemiesAtPosition(coordenateX, coordenateY);
             gameObject.GetComponent<Renderer>().material.color = Color.green;
         }else
         {
