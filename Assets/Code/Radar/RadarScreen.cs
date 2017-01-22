@@ -266,6 +266,8 @@ public class RadarScreen : MonoBehaviour {
 	}
 
 	public void DestroyEnemiesAtPosition(int x, int y) {
+		if (!radarOn)
+			return;
 		List<Enemy> enemiesAtPosition = GetEnemies(x, y);
 		foreach (Enemy enemy in enemiesAtPosition) {
 			enemies.Remove(enemy);
