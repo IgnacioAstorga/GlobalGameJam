@@ -15,8 +15,10 @@ public class WaveScreen : MonoBehaviour {
 
 	public float speed = 1.0f;
 
+	public float minAmplitude = 0.05f;
 	public float maxAmplitude = 0.5f;
-	public float maxFrequency = 10.0f;
+	public float minFrequency = 3.0f;
+	public float maxFrequency = 30.0f;
 	public float toleranceFactor = 0.05f;
 
 	public float minChangeTime = 30.0f;
@@ -86,8 +88,8 @@ public class WaveScreen : MonoBehaviour {
 		_nextTimeToChange = Random.Range(minChangeTime, maxChangeTime);
 
 		foreach (Wave wave in targetWaves) {
-			wave.amplitude = Random.value * maxAmplitude;
-			wave.frequency = Random.value * maxFrequency;
+			wave.amplitude = Random.Range(minAmplitude, maxAmplitude);
+			wave.frequency = Random.Range(minFrequency, maxFrequency);
 		}
 	}
 
@@ -138,7 +140,7 @@ public class WaveScreen : MonoBehaviour {
 	}
 
 	public bool WavesFitTogether(Wave waveA, Wave waveB) {
-		return Mathf.Abs(waveA.amplitude - waveB.amplitude) < maxAmplitude * toleranceFactor
-			&& Mathf.Abs(waveA.frequency - waveB.frequency) < maxFrequency * toleranceFactor;
+		return Mathf.Abs(waveA.amplitude - waveB.amplitude) < (maxAmplitude - minAmplitude) * toleranceFactor
+			&& Mathf.Abs(waveA.frequency - waveB.frequency) < (maxFrequency - minFrequency) * toleranceFactor;
 	}
 }

@@ -30,11 +30,11 @@ public class Regulator : MonoBehaviour {
 		if (_transform.TransformDirection(cross).z < 0)
 			angle *= -1;
 		if (angle < minAngle) {
-			model.rotation = Quaternion.AngleAxis(minAngle - angle, model.up) * model.rotation;
+			model.localRotation = Quaternion.AngleAxis(minAngle - angle, -Vector3.up) * model.localRotation;
 			angle = minAngle;
 		}
 		else if (angle > maxAngle) {
-			model.rotation = Quaternion.AngleAxis(maxAngle - angle, model.up) * model.rotation;
+			model.localRotation = Quaternion.AngleAxis(maxAngle - angle, -Vector3.up) * model.localRotation;
 			angle = maxAngle;
 		}
 		value = Mathf.InverseLerp(minAngle, maxAngle, angle);
