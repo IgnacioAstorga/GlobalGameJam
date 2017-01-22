@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 public class GameController : MonoBehaviour
 {
-	public RadarScreen radar;
-
-	public WaveScreen wave;
-
-    //public TurretScreen turret;
-
     public int maxLives = 5;
 
-    private int lives;
+	public float gameOverDuration = 4.0f;
+	public float gameOverFadeIn = 2.0f;
+	public float gameOverFadeOut = 0.5f;
 
-    public GameObject title;
+	public float damageMagnitude;
+
+	public float damageDuration;
+
+	public GameObject title;
 
     public GameObject mainMenu;
 
@@ -26,20 +26,31 @@ public class GameController : MonoBehaviour
     public Transform StartPosition;
 
     public Transform BackPosition;
+	
+	public RadarScreen radar;
 
-    public float damageMagnitude;
+	public WaveScreen wave;
 
-    public float damageDuration;
+	//public TurretScreen turret;
 
-    private static GameController instance = null;
+	public FadeElement gameOverText;
 
-    private bool isPaused = false;
+	public FadeElement blackFade;
+
+	private static GameController instance = null;
+
+	private int lives;
+
+	private bool isPaused = false;
 
     private bool hasStarted = false;
 
     private bool isInHelp = false;
 
-    void Awake()
+	private bool gameOver = false;
+	private float gameOverRemainingTime;
+
+	void Awake()
     {
         instance = this;
         lives = maxLives;
@@ -55,8 +66,15 @@ public class GameController : MonoBehaviour
                 Continue();
         }
 
-		if (Input.GetMouseButtonDown(0))
-			Damage(1);
+		if (gameOver) {
+			gameOverRemainingTime -= Time.deltaTime;
+			if (gameOverRemainingTime < 0) {
+				gameOver = false;
+				gameOverText.FadeOut(gameOverFadeOut);
+				blackFade.FadeOut(gameOverFadeOut);
+				Stop(true);
+			}
+		}
     }
 
     public static GameController GetInstance()
@@ -65,60 +83,80 @@ public class GameController : MonoBehaviour
         return instance;
     }
 
-    public void Pause()
-    {
-
+    public void Pause() {
         Time.timeScale = 0;
         
         pauseMenu.SetActive(true);
         HitBlocker.SetActive(true);
 
-        isPaused = !isPaused;
+        isPaused = true;
     }
 
-    public void Continue()
-    {
-
+    public void Continue() {
         Time.timeScale = 1;
 
         pauseMenu.SetActive(false);
         HitBlocker.SetActive(false);
 
-        isPaused = !isPaused;
-    }
+        isPaused = false;
+	}
 
-    public void Restart()
-    {
+	public void Play() {
+		Continue();
 
-        Time.timeScale = 1;
+		hasStarted = true;
 
-        pauseMenu.SetActive(false);
-        HitBlocker.SetActive(false);
+		mainMenu.SetActive(false);
+		HitBlocker.SetActive(false);
+		title.SetActive(false);
 
-        cameraController.MoveTo(BackPosition);
+		cameraController.MoveTo(BackPosition);
+		cameraController.EnableColliders();
 
-        cameraController.EnableColliders();
+		lives = maxLives;
 
-        isPaused = !isPaused;
-    }
+		radar.Play();
+		wave.Play();
+		//turret.Play();
+	}
 
-    public void Stop()
-    {
+	public void Stop(bool showMenu = true) {
+		Continue();
 
-        Continue();
+		hasStarted = false;
 
-        hasStarted = false;
+		mainMenu.SetActive(showMenu);
+		HitBlocker.SetActive(showMenu);
+		title.SetActive(showMenu);
 
-        mainMenu.SetActive(true);
+		if (showMenu) {
+			cameraController.MoveTo(StartPosition);
+			cameraController.DisableColliders();
+		}
 
-        HitBlocker.SetActive(true);
+		radar.Stop();
+		wave.Stop();
+		//turret.Stop();
+	}
 
-        cameraController.MoveTo(StartPosition);
+	public void Restart() {
+		Stop();
+		Play();
+	}
 
-        title.SetActive(true);
-    }
+	public void GameOver() {
+		Stop(false);
 
-    public bool isGamePaused()
+		cameraController.ShakeCamera(maxLives * damageMagnitude, gameOverDuration);
+
+		gameOverText.FadeIn(gameOverFadeIn);
+		blackFade.FadeIn(gameOverFadeIn);
+
+		gameOver = true;
+		gameOverRemainingTime = gameOverDuration;
+	}
+
+	public bool isGamePaused()
     {
         return isPaused;
     }
@@ -131,16 +169,6 @@ public class GameController : MonoBehaviour
     public bool isInHelpMode()
     {
         return isInHelp;
-    }
-
-    public void setPaused(bool newState)
-    {
-        isPaused = newState;
-    }
-
-    public void setStarted(bool newState)
-    {
-        hasStarted = newState;
     }
 
     public void setInHelp(bool newState)
@@ -160,11 +188,6 @@ public class GameController : MonoBehaviour
         {
             cameraController.ShakeCamera((maxLives - lives) * damageMagnitude, damageDuration);
 		}
-    }
-
-    public void GameOver()
-    {
-
     }
 
     public int GetLives()
