@@ -117,7 +117,7 @@ public class GameController : MonoBehaviour
 
 		radar.Play();
 		wave.Play();
-		//turret.Play();
+		turret.Play();
 	}
 
 	public void Stop(bool showMenu = true) {
@@ -136,7 +136,7 @@ public class GameController : MonoBehaviour
 
 		radar.Stop();
 		wave.Stop();
-		//turret.Stop();
+		turret.Stop();
 	}
 
 	public void Restart() {
