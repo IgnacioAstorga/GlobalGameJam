@@ -37,6 +37,6 @@ public class Square : MonoBehaviour {
 	}
 
 	public void StopEffect() {
-		system.Stop();
+		//system.Stop();
 	}
 }
