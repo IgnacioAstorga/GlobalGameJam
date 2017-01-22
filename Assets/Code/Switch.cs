@@ -97,6 +97,7 @@ public class Switch : MonoBehaviour
             //other.GetComponent<Plug>().switched = false;
             Debug.Log("Plug turn to false");
             tempPlug = null;
+
         }
 
 

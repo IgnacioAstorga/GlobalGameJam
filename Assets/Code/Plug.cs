@@ -17,10 +17,6 @@ public class Plug : MonoBehaviour
         switched = false;
     }
 
-    public void Update() {
-        
-    }
-
     public void setSwitched(bool newValue)
     {
         switched = newValue;
