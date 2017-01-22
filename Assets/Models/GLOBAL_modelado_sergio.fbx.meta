@@ -1,0 +1,708 @@
+fileFormatVersion: 2
+guid: 1b82dd9e1007e604b96956f0c124350e
+timeCreated: 1485052194
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: BASE CABLE 1
+    100004: Bone
+    100006: Bone.001
+    100008: Bone.002
+    100010: Bone.002_end
+    100012: CABLE FIN 1
+    100014: CABLE FIN 1.001
+    100016: CABLE INICIO 1
+    100018: CABLE INTERMEDIO 1
+    100020: Cube
+    100022: Cube.001
+    100024: Cube.002
+    100026: Cube.003
+    100028: Cube.004
+    100030: Cube.005
+    100032: Cube.006
+    100034: Cube.007
+    100036: Cube.008
+    100038: Cube.009
+    100040: Cube.010
+    100042: Cube.011
+    100044: Cube.012
+    100046: Cube.013
+    100048: Cube.014
+    100050: Cube.015
+    100052: Cube.016
+    100054: Cube.017
+    100056: Cube.018
+    100058: Cube.019
+    100060: Cube.020
+    100062: Cube.021
+    100064: Cube.022
+    100066: Cube.023
+    100068: Cube.024
+    100070: Cube.025
+    100072: Cube.026
+    100074: Cube.027
+    100076: Cube.028
+    100078: Cube.029
+    100080: Cube.030
+    100082: Cube.031
+    100084: Cylinder
+    100086: Cylinder.001
+    100088: Cylinder.002
+    100090: Cylinder.003
+    100092: Cylinder.004
+    100094: Cylinder.005
+    100096: Cylinder.006
+    100098: Cylinder.007
+    100100: Cylinder.008
+    100102: Cylinder.009
+    100104: Cylinder.010
+    100106: Cylinder.011
+    100108: Cylinder.012
+    100110: Cylinder.013
+    100112: Cylinder.014
+    100114: Cylinder.015
+    100116: Cylinder.016
+    100118: Cylinder.017
+    100120: Cylinder.018
+    100122: Cylinder.019
+    100124: Cylinder.020
+    100126: Cylinder.021
+    100128: Cylinder.022
+    100130: Cylinder.023
+    100132: Cylinder.024
+    100134: Cylinder.025
+    100136: Cylinder.026
+    100138: Cylinder.027
+    100140: Cylinder.028
+    100142: Cylinder.029
+    100144: Cylinder.030
+    100146: Cylinder.031
+    100148: Cylinder.032
+    100150: Cylinder.033
+    100152: Cylinder.034
+    100154: Cylinder.035
+    100156: Cylinder.036
+    100158: Cylinder.037
+    100160: Cylinder.038
+    100162: Cylinder.039
+    100164: Cylinder.040
+    100166: Cylinder.041
+    100168: Cylinder.042
+    100170: Cylinder.043
+    100172: Cylinder.044
+    100174: Cylinder.045
+    100176: Cylinder.046
+    100178: Cylinder.047
+    100180: Cylinder.048
+    100182: Cylinder.049
+    100184: Cylinder.050
+    100186: Cylinder.051
+    100188: Cylinder.052
+    100190: Cylinder.053
+    100192: Cylinder.054
+    100194: Cylinder.055
+    100196: DFSDHGS
+    100198: //RootNode
+    100200: JACK 1
+    100202: Plane
+    100204: Plane.001
+    100206: PUERTO A
+    100208: PUERTO A.001
+    100210: PUERTO A.002
+    100212: PUERTO A.003
+    100214: PUERTO A.004
+    100216: PUERTO A.005
+    100218: PUERTO A.006
+    100220: PUERTO A.007
+    100222: PUERTO A.008
+    100224: PUERTO A.009
+    100226: PUERTO A.010
+    100228: PUERTO A.011
+    100230: PUERTO A.012
+    100232: PUERTO A.013
+    100234: Sphere
+    100236: Sphere.001
+    100238: Sphere.002
+    100240: Sphere.003
+    100242: Sphere.004
+    100244: Sphere.005
+    100246: Sphere.006
+    100248: TIPO 1 HIGH
+    100250: TIPO 1 HIGH.003
+    100252: TIPO 1 HIGH.004
+    100254: TIPO 1 LOW
+    100256: TIPO 2 HIGH
+    100258: TIPO 2 LOW
+    100260: TIPO 3 LOW
+    400000: Armature
+    400002: BASE CABLE 1
+    400004: Bone
+    400006: Bone.001
+    400008: Bone.002
+    400010: Bone.002_end
+    400012: CABLE FIN 1
+    400014: CABLE FIN 1.001
+    400016: CABLE INICIO 1
+    400018: CABLE INTERMEDIO 1
+    400020: Cube
+    400022: Cube.001
+    400024: Cube.002
+    400026: Cube.003
+    400028: Cube.004
+    400030: Cube.005
+    400032: Cube.006
+    400034: Cube.007
+    400036: Cube.008
+    400038: Cube.009
+    400040: Cube.010
+    400042: Cube.011
+    400044: Cube.012
+    400046: Cube.013
+    400048: Cube.014
+    400050: Cube.015
+    400052: Cube.016
+    400054: Cube.017
+    400056: Cube.018
+    400058: Cube.019
+    400060: Cube.020
+    400062: Cube.021
+    400064: Cube.022
+    400066: Cube.023
+    400068: Cube.024
+    400070: Cube.025
+    400072: Cube.026
+    400074: Cube.027
+    400076: Cube.028
+    400078: Cube.029
+    400080: Cube.030
+    400082: Cube.031
+    400084: Cylinder
+    400086: Cylinder.001
+    400088: Cylinder.002
+    400090: Cylinder.003
+    400092: Cylinder.004
+    400094: Cylinder.005
+    400096: Cylinder.006
+    400098: Cylinder.007
+    400100: Cylinder.008
+    400102: Cylinder.009
+    400104: Cylinder.010
+    400106: Cylinder.011
+    400108: Cylinder.012
+    400110: Cylinder.013
+    400112: Cylinder.014
+    400114: Cylinder.015
+    400116: Cylinder.016
+    400118: Cylinder.017
+    400120: Cylinder.018
+    400122: Cylinder.019
+    400124: Cylinder.020
+    400126: Cylinder.021
+    400128: Cylinder.022
+    400130: Cylinder.023
+    400132: Cylinder.024
+    400134: Cylinder.025
+    400136: Cylinder.026
+    400138: Cylinder.027
+    400140: Cylinder.028
+    400142: Cylinder.029
+    400144: Cylinder.030
+    400146: Cylinder.031
+    400148: Cylinder.032
+    400150: Cylinder.033
+    400152: Cylinder.034
+    400154: Cylinder.035
+    400156: Cylinder.036
+    400158: Cylinder.037
+    400160: Cylinder.038
+    400162: Cylinder.039
+    400164: Cylinder.040
+    400166: Cylinder.041
+    400168: Cylinder.042
+    400170: Cylinder.043
+    400172: Cylinder.044
+    400174: Cylinder.045
+    400176: Cylinder.046
+    400178: Cylinder.047
+    400180: Cylinder.048
+    400182: Cylinder.049
+    400184: Cylinder.050
+    400186: Cylinder.051
+    400188: Cylinder.052
+    400190: Cylinder.053
+    400192: Cylinder.054
+    400194: Cylinder.055
+    400196: DFSDHGS
+    400198: //RootNode
+    400200: JACK 1
+    400202: Plane
+    400204: Plane.001
+    400206: PUERTO A
+    400208: PUERTO A.001
+    400210: PUERTO A.002
+    400212: PUERTO A.003
+    400214: PUERTO A.004
+    400216: PUERTO A.005
+    400218: PUERTO A.006
+    400220: PUERTO A.007
+    400222: PUERTO A.008
+    400224: PUERTO A.009
+    400226: PUERTO A.010
+    400228: PUERTO A.011
+    400230: PUERTO A.012
+    400232: PUERTO A.013
+    400234: Sphere
+    400236: Sphere.001
+    400238: Sphere.002
+    400240: Sphere.003
+    400242: Sphere.004
+    400244: Sphere.005
+    400246: Sphere.006
+    400248: TIPO 1 HIGH
+    400250: TIPO 1 HIGH.003
+    400252: TIPO 1 HIGH.004
+    400254: TIPO 1 LOW
+    400256: TIPO 2 HIGH
+    400258: TIPO 2 LOW
+    400260: TIPO 3 LOW
+    2300000: BASE CABLE 1
+    2300002: CABLE FIN 1
+    2300004: CABLE FIN 1.001
+    2300006: CABLE INICIO 1
+    2300008: CABLE INTERMEDIO 1
+    2300010: Cube
+    2300012: Cube.001
+    2300014: Cube.002
+    2300016: Cube.003
+    2300018: Cube.004
+    2300020: Cube.005
+    2300022: Cube.006
+    2300024: Cube.007
+    2300026: Cube.008
+    2300028: Cube.009
+    2300030: Cube.010
+    2300032: Cube.011
+    2300034: Cube.012
+    2300036: Cube.013
+    2300038: Cube.014
+    2300040: Cube.015
+    2300042: Cube.016
+    2300044: Cube.017
+    2300046: Cube.018
+    2300048: Cube.019
+    2300050: Cube.020
+    2300052: Cube.021
+    2300054: Cube.022
+    2300056: Cube.023
+    2300058: Cube.024
+    2300060: Cube.025
+    2300062: Cube.026
+    2300064: Cube.027
+    2300066: Cube.028
+    2300068: Cube.029
+    2300070: Cube.030
+    2300072: Cube.031
+    2300074: Cylinder
+    2300076: Cylinder.001
+    2300078: Cylinder.002
+    2300080: Cylinder.003
+    2300082: Cylinder.004
+    2300084: Cylinder.005
+    2300086: Cylinder.006
+    2300088: Cylinder.007
+    2300090: Cylinder.008
+    2300092: Cylinder.009
+    2300094: Cylinder.010
+    2300096: Cylinder.011
+    2300098: Cylinder.012
+    2300100: Cylinder.013
+    2300102: Cylinder.014
+    2300104: Cylinder.015
+    2300106: Cylinder.016
+    2300108: Cylinder.017
+    2300110: Cylinder.018
+    2300112: Cylinder.019
+    2300114: Cylinder.020
+    2300116: Cylinder.021
+    2300118: Cylinder.022
+    2300120: Cylinder.023
+    2300122: Cylinder.024
+    2300124: Cylinder.025
+    2300126: Cylinder.026
+    2300128: Cylinder.027
+    2300130: Cylinder.028
+    2300132: Cylinder.029
+    2300134: Cylinder.030
+    2300136: Cylinder.031
+    2300138: Cylinder.032
+    2300140: Cylinder.033
+    2300142: Cylinder.034
+    2300144: Cylinder.035
+    2300146: Cylinder.036
+    2300148: Cylinder.037
+    2300150: Cylinder.038
+    2300152: Cylinder.039
+    2300154: Cylinder.040
+    2300156: Cylinder.041
+    2300158: Cylinder.042
+    2300160: Cylinder.043
+    2300162: Cylinder.044
+    2300164: Cylinder.045
+    2300166: Cylinder.046
+    2300168: Cylinder.047
+    2300170: Cylinder.048
+    2300172: Cylinder.049
+    2300174: Cylinder.050
+    2300176: Cylinder.051
+    2300178: Cylinder.052
+    2300180: Cylinder.053
+    2300182: Cylinder.054
+    2300184: Cylinder.055
+    2300186: DFSDHGS
+    2300188: JACK 1
+    2300190: Plane
+    2300192: Plane.001
+    2300194: PUERTO A
+    2300196: PUERTO A.001
+    2300198: PUERTO A.002
+    2300200: PUERTO A.003
+    2300202: PUERTO A.004
+    2300204: PUERTO A.005
+    2300206: PUERTO A.006
+    2300208: PUERTO A.007
+    2300210: PUERTO A.008
+    2300212: PUERTO A.009
+    2300214: PUERTO A.010
+    2300216: PUERTO A.011
+    2300218: PUERTO A.012
+    2300220: PUERTO A.013
+    2300222: Sphere
+    2300224: Sphere.001
+    2300226: Sphere.002
+    2300228: Sphere.003
+    2300230: Sphere.004
+    2300232: Sphere.005
+    2300234: Sphere.006
+    2300236: TIPO 1 HIGH
+    2300238: TIPO 1 HIGH.003
+    2300240: TIPO 1 HIGH.004
+    2300242: TIPO 1 LOW
+    2300244: TIPO 2 HIGH
+    2300246: TIPO 2 LOW
+    2300248: TIPO 3 LOW
+    3300000: BASE CABLE 1
+    3300002: CABLE FIN 1
+    3300004: CABLE FIN 1.001
+    3300006: CABLE INICIO 1
+    3300008: CABLE INTERMEDIO 1
+    3300010: Cube
+    3300012: Cube.001
+    3300014: Cube.002
+    3300016: Cube.003
+    3300018: Cube.004
+    3300020: Cube.005
+    3300022: Cube.006
+    3300024: Cube.007
+    3300026: Cube.008
+    3300028: Cube.009
+    3300030: Cube.010
+    3300032: Cube.011
+    3300034: Cube.012
+    3300036: Cube.013
+    3300038: Cube.014
+    3300040: Cube.015
+    3300042: Cube.016
+    3300044: Cube.017
+    3300046: Cube.018
+    3300048: Cube.019
+    3300050: Cube.020
+    3300052: Cube.021
+    3300054: Cube.022
+    3300056: Cube.023
+    3300058: Cube.024
+    3300060: Cube.025
+    3300062: Cube.026
+    3300064: Cube.027
+    3300066: Cube.028
+    3300068: Cube.029
+    3300070: Cube.030
+    3300072: Cube.031
+    3300074: Cylinder
+    3300076: Cylinder.001
+    3300078: Cylinder.002
+    3300080: Cylinder.003
+    3300082: Cylinder.004
+    3300084: Cylinder.005
+    3300086: Cylinder.006
+    3300088: Cylinder.007
+    3300090: Cylinder.008
+    3300092: Cylinder.009
+    3300094: Cylinder.010
+    3300096: Cylinder.011
+    3300098: Cylinder.012
+    3300100: Cylinder.013
+    3300102: Cylinder.014
+    3300104: Cylinder.015
+    3300106: Cylinder.016
+    3300108: Cylinder.017
+    3300110: Cylinder.018
+    3300112: Cylinder.019
+    3300114: Cylinder.020
+    3300116: Cylinder.021
+    3300118: Cylinder.022
+    3300120: Cylinder.023
+    3300122: Cylinder.024
+    3300124: Cylinder.025
+    3300126: Cylinder.026
+    3300128: Cylinder.027
+    3300130: Cylinder.028
+    3300132: Cylinder.029
+    3300134: Cylinder.030
+    3300136: Cylinder.031
+    3300138: Cylinder.032
+    3300140: Cylinder.033
+    3300142: Cylinder.034
+    3300144: Cylinder.035
+    3300146: Cylinder.036
+    3300148: Cylinder.037
+    3300150: Cylinder.038
+    3300152: Cylinder.039
+    3300154: Cylinder.040
+    3300156: Cylinder.041
+    3300158: Cylinder.042
+    3300160: Cylinder.043
+    3300162: Cylinder.044
+    3300164: Cylinder.045
+    3300166: Cylinder.046
+    3300168: Cylinder.047
+    3300170: Cylinder.048
+    3300172: Cylinder.049
+    3300174: Cylinder.050
+    3300176: Cylinder.051
+    3300178: Cylinder.052
+    3300180: Cylinder.053
+    3300182: Cylinder.054
+    3300184: Cylinder.055
+    3300186: DFSDHGS
+    3300188: JACK 1
+    3300190: Plane
+    3300192: Plane.001
+    3300194: PUERTO A
+    3300196: PUERTO A.001
+    3300198: PUERTO A.002
+    3300200: PUERTO A.003
+    3300202: PUERTO A.004
+    3300204: PUERTO A.005
+    3300206: PUERTO A.006
+    3300208: PUERTO A.007
+    3300210: PUERTO A.008
+    3300212: PUERTO A.009
+    3300214: PUERTO A.010
+    3300216: PUERTO A.011
+    3300218: PUERTO A.012
+    3300220: PUERTO A.013
+    3300222: Sphere
+    3300224: Sphere.001
+    3300226: Sphere.002
+    3300228: Sphere.003
+    3300230: Sphere.004
+    3300232: Sphere.005
+    3300234: Sphere.006
+    3300236: TIPO 1 HIGH
+    3300238: TIPO 1 HIGH.003
+    3300240: TIPO 1 HIGH.004
+    3300242: TIPO 1 LOW
+    3300244: TIPO 2 HIGH
+    3300246: TIPO 2 LOW
+    3300248: TIPO 3 LOW
+    4300000: Cube.031
+    4300002: Cube.030
+    4300004: Cylinder.052
+    4300006: Cylinder.053
+    4300008: Cube.029
+    4300010: Cube.028
+    4300012: Cube.027
+    4300014: Cylinder.051
+    4300016: Cylinder.023
+    4300018: Cube.002
+    4300020: Cylinder.017
+    4300022: Cube.015
+    4300024: Cube.014
+    4300026: Cylinder.014
+    4300028: Cube.013
+    4300030: Cube.010
+    4300032: Cube.011
+    4300034: Plane
+    4300036: Cylinder.011
+    4300038: Sphere
+    4300040: Cylinder.008
+    4300042: Cylinder.009
+    4300044: Cube.009
+    4300046: Cube.008
+    4300048: Cylinder.007
+    4300050: Cylinder.006
+    4300052: Cube.007
+    4300054: Cylinder
+    4300056: Cube.006
+    4300058: Cube.005
+    4300060: Cube.004
+    4300062: Cube.003
+    4300064: PUERTO A.013
+    4300066: PUERTO A.012
+    4300068: PUERTO A.011
+    4300070: PUERTO A.010
+    4300072: PUERTO A.009
+    4300074: PUERTO A.007
+    4300076: PUERTO A.006
+    4300078: PUERTO A.005
+    4300080: PUERTO A.004
+    4300082: PUERTO A.003
+    4300084: PUERTO A.002
+    4300086: PUERTO A.001
+    4300088: PUERTO A.008
+    4300090: JACK 1
+    4300092: PUERTO A
+    4300094: CABLE FIN 1
+    4300096: CABLE INTERMEDIO 1
+    4300098: CABLE INICIO 1
+    4300100: TIPO 1 HIGH.004
+    4300102: TIPO 1 HIGH.003
+    4300104: BASE CABLE 1
+    4300106: Cube.001
+    4300108: Cube
+    4300110: TIPO 3 LOW
+    4300112: DFSDHGS
+    4300114: TIPO 2 HIGH
+    4300116: TIPO 1 HIGH
+    4300118: TIPO 2 LOW
+    4300120: TIPO 1 LOW
+    4300122: Cylinder.001
+    4300124: Cylinder.002
+    4300126: Cylinder.003
+    4300128: Cylinder.004
+    4300130: Cylinder.005
+    4300132: Cylinder.010
+    4300134: Sphere.001
+    4300136: Sphere.004
+    4300138: Cube.012
+    4300140: Cylinder.012
+    4300142: Cylinder.013
+    4300144: Sphere.002
+    4300146: Cylinder.015
+    4300148: Cylinder.016
+    4300150: Sphere.003
+    4300152: Cube.016
+    4300154: Cylinder.018
+    4300156: Cylinder.019
+    4300158: CABLE FIN 1.001
+    4300160: Cylinder.020
+    4300162: Sphere.005
+    4300164: Cylinder.021
+    4300166: Sphere.006
+    4300168: Cylinder.022
+    4300170: Cube.017
+    4300172: Cylinder.024
+    4300174: Cylinder.025
+    4300176: Cylinder.026
+    4300178: Cylinder.027
+    4300180: Cylinder.028
+    4300182: Cube.018
+    4300184: Cylinder.029
+    4300186: Cylinder.030
+    4300188: Cylinder.031
+    4300190: Cylinder.032
+    4300192: Cylinder.033
+    4300194: Cube.019
+    4300196: Cube.020
+    4300198: Cube.021
+    4300200: Cylinder.034
+    4300202: Cylinder.035
+    4300204: Cube.022
+    4300206: Cylinder.036
+    4300208: Cylinder.037
+    4300210: Cylinder.038
+    4300212: Cube.023
+    4300214: Cube.024
+    4300216: Cube.025
+    4300218: Cylinder.039
+    4300220: Cylinder.040
+    4300222: Cylinder.041
+    4300224: Cylinder.042
+    4300226: Cylinder.043
+    4300228: Cylinder.044
+    4300230: Cylinder.045
+    4300232: Cylinder.046
+    4300234: Cylinder.047
+    4300236: Cylinder.048
+    4300238: Cylinder.049
+    4300240: Cylinder.050
+    4300242: Cube.026
+    4300244: Plane.001
+    4300246: Cylinder.054
+    4300248: Cylinder.055
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 0
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
