@@ -62,12 +62,14 @@ public class Switch : MonoBehaviour
     }
 
     //sigue al raton
-    public void MouseMove()
-    {
-        var pos = Input.mousePosition;
-        pos.z = 5f;
-        pos = Camera.main.ScreenToWorldPoint(pos);
-        transform.position = pos;   
+    public void MouseMove() {
+		Plane plane = new Plane(-transform.parent.forward, transform.parent.position);
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		float distance;
+		if (plane.Raycast(ray, out distance))
+			transform.position = ray.GetPoint(distance);
+		else
+			Debug.Log("ERROR");
     }
 
     //devuelve el valor del enchufe al colisionar con el
