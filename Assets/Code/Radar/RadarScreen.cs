@@ -271,6 +271,7 @@ public class RadarScreen : MonoBehaviour {
 			enemies.Remove(enemy);
 			enemy.Destroy();
 		}
+		squares[x, y].PlayEffect();
 	}
 
 	private void HeartBeatEnemies(float angle) {
