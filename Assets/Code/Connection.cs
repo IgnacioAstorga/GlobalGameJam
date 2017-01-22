@@ -11,11 +11,7 @@ public class Connection : MonoBehaviour
     public Switch from;
     public Switch to;
     public float scaleZ;
-    /*
-    public Switch sv;
-
-    private bool stablished;
-    */
+  
    
 
     public void Update() {
@@ -29,7 +25,6 @@ public class Connection : MonoBehaviour
             scaleZ = (to.transform.position - from.transform.position).magnitude;
 
         }
-
         PointingTo();
         ScaleZ();
     }

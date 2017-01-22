@@ -9,17 +9,6 @@ public class Switch : MonoBehaviour
     public radarCoord coord; 
     //define el estado del interruptor. si esta conectado. puede ser true o false
     public bool switched;
-    //valor que representa posicion vertical
-    
-    //ultimo valor correcto
-    //public int lastKnownValue;
-    //ultima posicion correcta
-    //public Vector3 lastKnownPos;
-    //posicion a la que se va a mover si se suelta el boton
-    //public Vector3 tempPos;
-    //posicion a la que se va a mover si se suelta el boton
-    //public int tempValue;
-
     //plug inicial
     public Plug initialPlug;
     //plug temporal
@@ -43,6 +32,7 @@ public class Switch : MonoBehaviour
     //en cada frame
     public void Update() {
         
+        
         if (switched)
         {
             gameObject.GetComponent<Renderer>().material.color = Color.green;
@@ -52,11 +42,13 @@ public class Switch : MonoBehaviour
             gameObject.GetComponent<Renderer>().material.color = Color.red;
 
         }
+        
     }
     //al mantenerlo apretado sigue al raton
     void OnMouseDown()
     {
         switched = false;
+        lastKnownPlug.switched = false;
     }
 
     void OnMouseDrag() {
@@ -110,9 +102,7 @@ public class Switch : MonoBehaviour
                     tempPlug = other.GetComponent<Plug>();
                     other.GetComponent<Plug>().switched = true;
                 }
-
             }
-
         }
 
     }
@@ -122,7 +112,8 @@ public class Switch : MonoBehaviour
     {
         if (other.CompareTag("Plug"))
         {
-            other.GetComponent<Plug>().switched = false;
+            //other.GetComponent<Plug>().switched = false;
+            Debug.Log("Plug turn to false");
             tempPlug = null;
         }
 
