@@ -271,6 +271,7 @@ public class RadarScreen : MonoBehaviour {
 			enemies.Remove(enemy);
 			enemy.Destroy();
 		}
+		Debug.Log("FIRE AT: " + x + ", " + y);
 		squares[x, y].PlayEffect();
 	}
 
