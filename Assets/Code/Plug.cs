@@ -9,7 +9,7 @@ public class Plug : MonoBehaviour
     //define si elo interruptor apunta a la coordenada X o Y del radar
     public radarCoord coord;
     //esta conectado a un switch o no
-    public bool switched;
+    private bool switched;
     //valor numerico de la coordenada
     public int value;
 
@@ -19,6 +19,16 @@ public class Plug : MonoBehaviour
 
     public void Update() {
         
+    }
+
+    public void setSwitched(bool newValue)
+    {
+        switched = newValue;
+        Debug.Log(value);
+    }
+    public bool getSwitched()
+    {
+        return switched;
     }
 
 }

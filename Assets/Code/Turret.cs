@@ -24,19 +24,13 @@ public class Turret : MonoBehaviour
     en tal caso llama al disparador del radar con las coordenadas*/
     public void Update()
     {
-        
+
         if (CheckConn())
         {
             SetX(GetX());
             SetY(GetY());
-            GameController.GetInstance().radar.DestroyEnemiesAtPosition(coordenateX, coordenateY);
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-        }else
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
-
-        }
-        
+            //GameController.GetInstance().radar.DestroyEnemiesAtPosition(coordenateX, coordenateY);
+        }        
     }
 
     public bool CheckConn()

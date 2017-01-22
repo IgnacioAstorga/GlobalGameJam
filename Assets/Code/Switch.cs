@@ -29,26 +29,12 @@ public class Switch : MonoBehaviour
         
     }
 
-    //en cada frame
-    public void Update() {
-        
-        
-        if (switched)
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.green;
-        }
-        else
-        {
-            gameObject.GetComponent<Renderer>().material.color = Color.red;
-
-        }
-        
-    }
+    
     //al mantenerlo apretado sigue al raton
     void OnMouseDown()
     {
         switched = false;
-        lastKnownPlug.switched = false;
+        lastKnownPlug.setSwitched(false);
     }
 
     void OnMouseDrag() {
@@ -66,13 +52,9 @@ public class Switch : MonoBehaviour
         }
         transform.position = lastKnownPlug.transform.position;
         switched = true;
-
-
+        
     }
-
-
-
-
+    
     //devuelve el valor del interruptor
     public int GetValue()
     {
@@ -95,12 +77,12 @@ public class Switch : MonoBehaviour
     {
         if (other.CompareTag("Plug") )
         {
-            if (other.GetComponent<Plug>().switched == false )
+            if (other.GetComponent<Plug>().getSwitched() == false )
             {
                 if (other.GetComponent<Plug>().coord.ToString().Equals(this.coord.ToString()) == true)
                 {
                     tempPlug = other.GetComponent<Plug>();
-                    other.GetComponent<Plug>().switched = true;
+                    other.GetComponent<Plug>().setSwitched(true);
                 }
             }
         }
