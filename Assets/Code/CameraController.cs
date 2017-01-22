@@ -3,152 +3,158 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour
 {
-    public GameObject child;
+	public GameObject child;
 
-    public GameObject[] screens;
+	public GameObject[] screens;
 
-    public Transform backPostion;
+	public Transform backPostion;
 
-    public Transform initPosition;
+	public Transform initPosition;
 
-    public float movementDuration = 1.0f;
+	public float movementDuration = 1.0f;
 
-    public GameObject lightChain;
+	public GameObject lightChain;
 
-    public float lightPhysicsFactor = 10;
+	public ParticleSystem dustParticles;
 
-    public GameObject text1;
+	public float lightPhysicsFactor = 10;
 
-    public GameObject text2;
+	public GameObject text1;
 
-    public GameObject text3;
+	public GameObject text2;
 
-    public GameObject mainText;
+	public GameObject text3;
 
-    private float startTime;
+	public GameObject mainText;
 
-    private Vector3 startPostion;
+	private float startTime;
 
-    private Vector3 endPostion;
+	private Vector3 startPostion;
 
-    private Quaternion startRotation;
+	private Vector3 endPostion;
 
-    private Quaternion endRotation;
+	private Quaternion startRotation;
 
-    private float shakeTime;
+	private Quaternion endRotation;
 
-    private float shakeMagnitude;
+	private float shakeTime;
 
-    private float magnitudeDecretion;
+	private float shakeMagnitude;
 
-    private Transform childTransform;
+	private float magnitudeDecretion;
 
-    private Rigidbody lightChainRB;
+	private Transform childTransform;
 
-    // Use this for initialization
-    void Start ()
-    {
-        endPostion = transform.position = initPosition.transform.position;
-        startRotation = endRotation = transform.rotation = initPosition.transform.rotation;
+	private Rigidbody lightChainRB;
 
-        childTransform = child.GetComponent<Transform>();
+	// Use this for initialization
+	void Start ()
+	{
+		endPostion = transform.position = initPosition.transform.position;
+		startRotation = endRotation = transform.rotation = initPosition.transform.rotation;
 
-        lightChainRB = lightChain.GetComponent<Rigidbody>();
-    }
+		childTransform = child.GetComponent<Transform>();
+
+		lightChainRB = lightChain.GetComponent<Rigidbody>();
+	}
 	
 	// Update is called once per frame
 	void Update ()
-    {
-        if (Input.GetMouseButtonDown(1) && 
-            !GameController.GetInstance().isGamePaused() &&
-            GameController.GetInstance().hasGameStarted())
-        {
-            EnableColliders();
-            MoveTo(backPostion);
-        }
+	{
+		if (Input.GetMouseButtonDown(1) && 
+			!GameController.GetInstance().isGamePaused() &&
+			GameController.GetInstance().hasGameStarted())
+		{
+			EnableColliders();
+			MoveTo(backPostion);
+		}
 
-        if (Input.GetMouseButtonDown(1) && 
-            GameController.GetInstance().isInHelpMode())
-        {
-            EnableColliders();
-            MoveTo(backPostion);
-            DisableTexts();
-        }
+		if (Input.GetMouseButtonDown(1) && 
+			GameController.GetInstance().isInHelpMode())
+		{
+			EnableColliders();
+			MoveTo(backPostion);
+			DisableTexts();
+		}
 
-        float t = (Time.time - startTime) / movementDuration;
-        if (t <= 1f)
-        {
-            transform.position = SmoothStep(startPostion, endPostion, t);
-            transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
-        }
-        
-        if(shakeTime > 0)
-        {
-            shakeTime -= Time.deltaTime;
-            float cameraShakeAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
-            childTransform.localPosition = new Vector3(Mathf.Cos(cameraShakeAngle), Mathf.Sin(cameraShakeAngle), 0.0f) * shakeMagnitude;
+		float t = (Time.time - startTime) / movementDuration;
+		if (t <= 1f)
+		{
+			transform.position = SmoothStep(startPostion, endPostion, t);
+			transform.rotation = Quaternion.Lerp(startRotation, endRotation, t);
+		}
 
-            float lightShakeAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
-            lightChainRB.AddForce(new Vector3(Mathf.Cos(lightShakeAngle), 0, Mathf.Sin(lightShakeAngle)) * shakeMagnitude * lightPhysicsFactor);
+		if(shakeTime > 0)
+		{
+			shakeTime -= Time.deltaTime;
+			float cameraShakeAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
+			childTransform.localPosition = new Vector3(Mathf.Cos(cameraShakeAngle), Mathf.Sin(cameraShakeAngle), 0.0f) * shakeMagnitude;
 
-            shakeMagnitude -= magnitudeDecretion * Time.deltaTime;
-        }
-        else
-        {
-            childTransform.localPosition = Vector3.zero;
-        }
-    }
+			float lightShakeAngle = Random.Range(0.0f, 2.0f * Mathf.PI);
+			lightChainRB.AddForce(new Vector3(Mathf.Cos(lightShakeAngle), 0, Mathf.Sin(lightShakeAngle)) * shakeMagnitude * lightPhysicsFactor);
 
-    public void MoveTo(Transform targetTransform)
-    {
+			shakeMagnitude -= magnitudeDecretion * Time.deltaTime;
 
-        startTime = Time.time;
+			dustParticles.Play(true);
+		}
+		else
+		{
+			childTransform.localPosition = Vector3.zero;
 
-        endPostion = targetTransform.position;
-        endRotation = targetTransform.rotation;
+			dustParticles.Stop(true);
+		}
+	}
 
-        startPostion = transform.position;
-        startRotation = transform.rotation;
-    }
+	public void MoveTo(Transform targetTransform)
+	{
 
-    public void DisableColliders()
-    {
-        foreach ( GameObject screen in screens)
-        {
-            screen.SetActive(false);
-        }
-    }
+		startTime = Time.time;
 
-    public void EnableColliders()
-    {
-        foreach (GameObject screen in screens)
-        {
-            screen.SetActive(true);
-        }
-    }
+		endPostion = targetTransform.position;
+		endRotation = targetTransform.rotation;
 
-    public void ShakeCamera(float magnitude, float duration)
-    {
-        shakeTime = duration;
-        shakeMagnitude = magnitude;
-        magnitudeDecretion = magnitude / duration;
+		startPostion = transform.position;
+		startRotation = transform.rotation;
+	}
 
-    }
+	public void DisableColliders()
+	{
+		foreach ( GameObject screen in screens)
+		{
+			screen.SetActive(false);
+		}
+	}
 
-    public static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount)
-    {
-        return new Vector3(
-            Mathf.SmoothStep(value1.x, value2.x, amount),
-            Mathf.SmoothStep(value1.y, value2.y, amount),
-            Mathf.SmoothStep(value1.z, value2.z, amount));
-    }
+	public void EnableColliders()
+	{
+		foreach (GameObject screen in screens)
+		{
+			screen.SetActive(true);
+		}
+	}
 
-    public void DisableTexts()
-    {
-        text1.SetActive(false);
-        text2.SetActive(false);
-        text3.SetActive(false);
-        mainText.SetActive(true);
-    }
+	public void ShakeCamera(float magnitude, float duration)
+	{
+		shakeTime = duration;
+		shakeMagnitude = magnitude;
+		magnitudeDecretion = magnitude / duration;
+
+	}
+
+	public static Vector3 SmoothStep(Vector3 value1, Vector3 value2, float amount)
+	{
+		return new Vector3(
+			Mathf.SmoothStep(value1.x, value2.x, amount),
+			Mathf.SmoothStep(value1.y, value2.y, amount),
+			Mathf.SmoothStep(value1.z, value2.z, amount));
+	}
+
+	public void DisableTexts()
+	{
+		text1.SetActive(false);
+		text2.SetActive(false);
+		text3.SetActive(false);
+		mainText.SetActive(true);
+	}
 
 }
