@@ -15,6 +15,11 @@ public class RadarScreen : MonoBehaviour {
 	// Objeto que contiene la barra de escaneo
 	public Transform scanBar;
 
+	// Flecha que indica el CD del ping restante
+	public Transform pingCDArrow;
+	public float arrowMaxAngle = 80.0f;
+	public float arrowSpeed = 2160.0f;
+
 	// Tamaño del tablero de enemigos
 	public int size;
 
@@ -129,6 +134,11 @@ public class RadarScreen : MonoBehaviour {
 			scanBar.localScale = Vector3.MoveTowards(scanBar.localScale, Vector3.zero, barGrowSpeed * Time.deltaTime);
 		}
 
+		// Maneja CD del ping
+		remainingPingCD -= Time.deltaTime;
+		float arrowAngle = Mathf.Lerp(-arrowMaxAngle, arrowMaxAngle, 1 - remainingPingCD / pingCD);
+		pingCDArrow.localRotation = Quaternion.RotateTowards(pingCDArrow.localRotation, Quaternion.Euler(0, 0, -arrowAngle), arrowSpeed / pingCD * Time.deltaTime);
+
 		// Hace aparecer enemigos
 		if (_playing) {
 			_timeRemaining -= Time.deltaTime;
@@ -190,7 +200,12 @@ public class RadarScreen : MonoBehaviour {
 		if (!radarOn)
 			return;
 
-		Ping ping = Instantiate<Ping>(pingPrefab);
+		// Comprueba si el ping está en CD
+		if (remainingPingCD >= 0)
+			return;
+		remainingPingCD = pingCD;
+
+		Ping ping = Instantiate(pingPrefab);
 		Transform pingTransform = ping.transform;
 		pingTransform.parent = pingParent;
 
